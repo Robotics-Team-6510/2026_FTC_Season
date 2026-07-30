@@ -1,0 +1,72 @@
+package org.firstinspires.ftc.teamcode.other_samples;
+
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
+
+// Adapted from Basic_Robot_Centric.java
+@TeleOp(name="Misc", group="Other Samples")
+@Disabled
+public class Basic_Miscellaneous extends OpMode
+{
+    // Declare Motors, Variables, and Functions
+    private DcMotor FRMotor;
+    private DcMotor FLMotor;
+    private DcMotor BRMotor;
+    private DcMotor BLMotor;
+
+
+    // All Config and Hardware Mapping
+    @Override
+    public void init() {
+        // Hardware mapping tells the program what Variables corresponds to what motor in your Robot Configuration
+        FRMotor = hardwareMap.get(DcMotor.class, "fr");
+        FLMotor = hardwareMap.get(DcMotor.class, "fl");
+        BRMotor = hardwareMap.get(DcMotor.class, "br");
+        BLMotor = hardwareMap.get(DcMotor.class, "bl");
+
+        // One side of motors will always need to be reversed so that they all spin in the same direction.
+        FRMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        FLMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        BRMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        BLMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+
+        // It is good practise to set the mode to ensure consistency
+        FRMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        FLMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        BRMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        BLMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+    }
+
+
+    @Override
+    public void loop() {
+        // Collect Necessary Data from Gamepad in This Loop
+        double ForwardBackwards = gamepad1.left_stick_y;
+        double Turn = gamepad1.right_stick_x;
+        double LeftRight = gamepad1.left_stick_x;
+
+        // For Speed Scaling
+        double SpeedScaler = 0.75;
+
+        // Example of Second Gamepad functioning in code
+        if(gamepad2.right_bumper) {
+            // Slow Button, if the Right Bumper on the second gamepad is being pressed, the robot will move slower
+            SpeedScaler = 0.25;
+        }
+
+        // Calculate the power for each Motor, combine the 3 above commented sections, multiply by the Scaler
+        double FRPower = (ForwardBackwards + Turn + LeftRight) * SpeedScaler;
+        double FLPower = (ForwardBackwards -Turn -LeftRight) * SpeedScaler;
+        double BRPower = (ForwardBackwards + Turn -LeftRight) * SpeedScaler;
+        double BLPower = (ForwardBackwards -Turn + LeftRight) * SpeedScaler;
+
+        // Set the power of the motors
+        FRMotor.setPower(FRPower);
+        FLMotor.setPower(FLPower);
+        BRMotor.setPower(BRPower);
+        BLMotor.setPower(BLPower);
+    }
+}
