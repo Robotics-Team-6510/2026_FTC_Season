@@ -7,7 +7,7 @@ Welcome!
 The easiest way to create your own OpMode is to copy a Sample OpMode and make it
 your own.
 
-Sample OpModes exist in the [samples](./samples) package.
+Sample OpModes exist in the [samples](./ftc_samples) package.
 
 Avoid modifying samples directly, instead make a copy of the sample outside of
 the samples package.
