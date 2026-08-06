@@ -18,7 +18,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 // Code with the same group name will be grouped together in the driver station
 @TeleOp(group="Group Name")
 @Disabled //##### REMOVE THIS LINE #####
-public class Template_Teleop extends OpMode
+public class  Template_Teleop extends OpMode
 {
     // Declare OpMode members, put motors, devices, etc all here. i.e: private DcMotor LeftFront;
 
@@ -27,7 +27,6 @@ public class Template_Teleop extends OpMode
     // Use this space for hardware mapping, motor configuration, etc.
     @Override
     public void init() {
-
     }
 
     // Code to run repeatedly during TeleOp
