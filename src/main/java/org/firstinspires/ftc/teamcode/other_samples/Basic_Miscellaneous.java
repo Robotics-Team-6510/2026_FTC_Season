@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 // Adapted from Basic_Robot_Centric.java
-@TeleOp(name="Misc", group="Other Samples")
+@TeleOp(group="Other Samples")
 @Disabled
 public class Basic_Miscellaneous extends OpMode
 {

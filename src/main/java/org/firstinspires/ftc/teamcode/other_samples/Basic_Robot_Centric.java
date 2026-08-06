@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-@TeleOp(name="Robot Centric TeleOp", group="Other Samples")
+@TeleOp(group="Other Samples")
 @Disabled
 public class Basic_Robot_Centric extends OpMode
 {

@@ -14,9 +14,9 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 
 // @TeleOp so it shows up in the right area of the Driver Station
-// Name is what shows up on the Driver Station
+// Do NOT give it a name "name = "something"", leave the name blank, and it will use the filename
 // Code with the same group name will be grouped together in the driver station
-@TeleOp(name="Creative Name", group="Group Name")
+@TeleOp(group="Group Name")
 @Disabled //##### REMOVE THIS LINE #####
 public class Template_Teleop extends OpMode
 {
