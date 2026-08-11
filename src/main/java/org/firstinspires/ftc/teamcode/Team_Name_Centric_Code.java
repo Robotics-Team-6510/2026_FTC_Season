@@ -60,9 +60,9 @@ public class Team_Name_Centric_Code extends OpMode
     @Override
     public void loop() {
         // Collect Necessary Data from Gamepad in This Loop
-        double ForwardBackwards = gamepad1.left_stick_y; // Y
+        double y = gamepad1.left_stick_y; // Y
         double Turn = gamepad1.right_stick_x;
-        double LeftRight = gamepad1.left_stick_x; // X
+        double x = gamepad1.left_stick_x; // X
 
         double yaw = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
 
@@ -77,12 +77,14 @@ public class Team_Name_Centric_Code extends OpMode
             SpeedScaler = 0.25;
         }
 
+        double rotX = x * Math.cos(-yaw) - y * Math.sin(-yaw);
+        double rotY = x * Math.sin(-yaw) + y * Math.cos(-yaw);
 
         // Calculate the power for each Motor, combine the 3 above commented sections, multiply by the Scaler
-        double FRPower = (ForwardBackwards + Turn + LeftRight) * SpeedScaler;
-        double FLPower = (ForwardBackwards -Turn -LeftRight) * SpeedScaler;
-        double BRPower = (ForwardBackwards + Turn -LeftRight) * SpeedScaler;
-        double BLPower = (ForwardBackwards -Turn + LeftRight) * SpeedScaler;
+        double FRPower = (rotY + Turn + rotX) * SpeedScaler;
+        double FLPower = (rotY-Turn - rotX) * SpeedScaler;
+        double BRPower = (rotY + Turn - rotX) * SpeedScaler;
+        double BLPower = (rotY -Turn + rotX) * SpeedScaler;
 
         // Set the power of the motors
         FRMotor.setPower(FRPower);
