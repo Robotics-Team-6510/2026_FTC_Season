@@ -10,10 +10,10 @@ import com.qualcomm.robotcore.hardware.IMU;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
 @TeleOp(name = "a name- cc all rights reserved")
-public class NEW_Challenge_one_CC_All_Rights_Reserved extends OpMode {
+public class CC_All_Rights_Reserved extends OpMode {
     // 1 - variables
 
-    DcMotor FRwheel, FLwheel, BRwheel, BLwheel;
+    DcMotor FRwheel, FLwheel, BRwheel, BLwheel, Fintake ;
 
     IMU imu_called_bob;
     double drivePower;
@@ -27,6 +27,10 @@ public class NEW_Challenge_one_CC_All_Rights_Reserved extends OpMode {
         BRwheel = hardwareMap.get(DcMotor.class, "brw");
         BLwheel = hardwareMap.get(DcMotor.class, "blw");
 
+        Fintake = hardwareMap.get(DcMotor.class, "Ff");
+
+
+
         imu_called_bob = hardwareMap.get(IMU.class, "imu");
 
         IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
@@ -39,8 +43,6 @@ public class NEW_Challenge_one_CC_All_Rights_Reserved extends OpMode {
 
         FLwheel.setDirection(DcMotorSimple.Direction.REVERSE);
         BLwheel.setDirection(DcMotorSimple.Direction.REVERSE);
-
-
 
     }
     @Override
@@ -66,6 +68,13 @@ public class NEW_Challenge_one_CC_All_Rights_Reserved extends OpMode {
             imu_called_bob.resetYaw();
         }
 
+        if (gamepad1.a){
+            Fintake.setPower(0.35);
+        } else if (gamepad1.b) {
+            Fintake.setPower(-1);
+        } else{
+            Fintake.setPower(0);
+        }
 
 
         FRwheel.setPower(drivePower*(rotForwards + turn - rotStrafe));
