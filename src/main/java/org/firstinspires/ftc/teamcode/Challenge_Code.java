@@ -11,7 +11,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 @TeleOp
 public class Challenge_Code extends OpMode {
     // section 1 - declaring variables - making variables
-    private DcMotor FrontRight, FrontLeft, BackLeft, BackRight;
+    private DcMotor FrontRight, FrontLeft, BackLeft, BackRight, FirstFeeder;
     private IMU imu;
 
     @Override
@@ -21,6 +21,7 @@ public class Challenge_Code extends OpMode {
         FrontLeft = hardwareMap.get(DcMotor.class, "FLW");
         BackLeft = hardwareMap.get(DcMotor.class, "BLW");
         BackRight = hardwareMap.get(DcMotor.class, "BRW");
+        FirstFeeder = hardwareMap.get(DcMotor.class, "FF");
 
         FrontRight.setDirection(DcMotorSimple.Direction.REVERSE);
         BackRight.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -40,7 +41,15 @@ public class Challenge_Code extends OpMode {
         double forward = -gamepad1.left_stick_y;
         double turn = gamepad1.right_stick_x;
         double strafe = gamepad1.left_stick_x;
-        double speed = 0.5;
+        double speed = 0.85;
+
+        if (gamepad1.left_bumper) {
+            FirstFeeder.setPower(0.5);
+        } else if (gamepad1.right_bumper) {
+            FirstFeeder.setPower(-0.5);
+        } else {
+            FirstFeeder.setPower(0);
+        }
 
         if (gamepad1.left_trigger_pressed) {
             speed = 0.85;
