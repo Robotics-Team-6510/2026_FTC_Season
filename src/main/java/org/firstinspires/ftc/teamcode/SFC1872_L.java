@@ -58,9 +58,9 @@ public class SFC1872_L extends OpMode {
         backRight.setPower((forward-turn+strafe)*SPEED);
 
         if (gamepad1.right_bumper) {
-            intake.setPower(0.5);
+            intake.setPower(1);
         }else if (gamepad1.left_bumper) {
-            intake.setPower(-0.5);
+            intake.setPower(-1);
         } else {
             intake.setPower(0);
         }
