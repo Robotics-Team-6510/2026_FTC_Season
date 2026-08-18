@@ -16,6 +16,7 @@ public class RICE_FC extends OpMode {
     IMU imu;
     DcMotor intake;
     double drive_power;
+    float best;
 
     @Override
     public void init(){
@@ -27,6 +28,7 @@ public class RICE_FC extends OpMode {
         rb_motor.setDirection(DcMotorSimple.Direction.REVERSE);
         rf_motor.setDirection(DcMotorSimple.Direction.REVERSE);
 
+        best = 0;
 
         imu = hardwareMap.get(IMU.class, "imu");
 
@@ -35,6 +37,7 @@ public class RICE_FC extends OpMode {
                 RevHubOrientationOnRobot.UsbFacingDirection.RIGHT));
 
         imu.initialize(parameters);
+
 
         ////////////////////////////////////////////////////////
         intake = hardwareMap.get(DcMotor.class, "intake");
@@ -58,7 +61,7 @@ public class RICE_FC extends OpMode {
         rf_motor.setPower(drive_power*(rotForward - turn - rotStrafe));
         rb_motor.setPower(drive_power*(rotForward - turn + rotStrafe));
 
-        double right_trigger =
+        float current = gamepad1.right_trigger;
 
         if (gamepad1.right_bumper) {
             drive_power = 0.8;
@@ -69,13 +72,26 @@ public class RICE_FC extends OpMode {
             imu.resetYaw();
         }
 
-//        if (gamepad2.a) {
-//            intake.setPower(0.8);
-//        }
-//        else {
-//            intake.setPower(0);
-//        }
-//
+        if (gamepad1.x) {
+            intake.setPower(0.8);
+        }
+        else {
+            intake.setPower(0);
+        }
+
+        if (current > best) {
+            best = current;
+        }
+
+        if (gamepad1.b) {
+            intake.setPower(-best);
+        } else {
+            intake.setPower(0);
+        }
+
+        if (gamepad1.a) {
+            best = 0;
+        }
 //        if (gamepad2.a) {
 //            intake.setPower(-0.8);
 //            telemetry.update();
@@ -83,7 +99,7 @@ public class RICE_FC extends OpMode {
 //        else {
 //            intake.setPower(0);
 //        }
-//
+
 
 
 
