@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.hardware.IMU;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
-@TeleOp(group="Other Samples")
+@TeleOp
 public class freerangedeggs_fieldcentric extends OpMode {
     // Declare Motors, Variables, and Functions
     private DcMotor frontRight;
@@ -19,6 +19,9 @@ public class freerangedeggs_fieldcentric extends OpMode {
     private DcMotor backLeft;
 
     private IMU imu;
+
+    private DcMotor intake;
+
 
 
     // Retrieve the IMU from the hardware map
@@ -32,7 +35,7 @@ public class freerangedeggs_fieldcentric extends OpMode {
         frontLeft = hardwareMap.get(DcMotor.class, "frontLeft");
         backRight = hardwareMap.get(DcMotor.class, "backRight");
         backLeft = hardwareMap.get(DcMotor.class, "backLeft");
-
+        intake = hardwareMap.get(DcMotor.class, "intake");
         // One side of motors will always need to be reversed so that they all spin in the same direction.
         frontRight.setDirection(DcMotorSimple.Direction.REVERSE);
         frontLeft.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -57,7 +60,7 @@ public class freerangedeggs_fieldcentric extends OpMode {
     @Override
     public void loop() {
         // Collect Necessary Data from Gamepad in This Loop
-        double y = gamepad1.left_stick_y;
+        double y = -gamepad1.left_stick_y;
         double Turn = gamepad1.right_stick_x;
         double x = gamepad1.left_stick_x;
 
@@ -73,7 +76,7 @@ public class freerangedeggs_fieldcentric extends OpMode {
         // Example of Second Gamepad functioning in code
         if(gamepad2.right_bumper) {
             // Slow Button, if the Right Bumper on the second gamepad is being pressed, the robot will move slower
-            SpeedScaler = 0.25;
+            SpeedScaler = 0.5;
         }
 
         if (gamepad1.options) {
@@ -81,16 +84,31 @@ public class freerangedeggs_fieldcentric extends OpMode {
         }
 
         // Calculate the power for each Motor, combine the 3 above commented sections, multiply by the Scaler
-        double FRPower = (rotY + Turn + rotX) * SpeedScaler;
-        double FLPower = (rotY -Turn -rotX) * SpeedScaler;
-        double BRPower = (rotY + Turn -rotX) * SpeedScaler;
-        double BLPower = (rotY -Turn + rotX) * SpeedScaler;
+        double FRPower = (rotY - Turn - rotX) * SpeedScaler;
+        double FLPower = (rotY +Turn + rotX) * SpeedScaler;
+        double BRPower = (rotY - Turn +rotX) * SpeedScaler;
+        double BLPower = (rotY +Turn - rotX) * SpeedScaler;
 
         // Set the power of the motors
         frontRight.setPower(FRPower);
         frontLeft.setPower(FLPower);
         backRight.setPower(BRPower);
         backLeft.setPower(BLPower);
+
+        if (gamepad1.left_bumper) {
+            intake.setPower(0.6);
+        } else if (gamepad1.left_trigger > 0) {
+            intake.setPower(-0.45);
+        } else {
+            intake.setPower(0);
+        }
+
+
+
+        telemetry.addData("heading", imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES));
+        telemetry.update();
+
+
     }
 
 }
