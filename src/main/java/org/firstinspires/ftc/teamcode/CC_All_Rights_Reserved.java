@@ -43,6 +43,7 @@ public class CC_All_Rights_Reserved extends OpMode {
 
         FLwheel.setDirection(DcMotorSimple.Direction.REVERSE);
         BLwheel.setDirection(DcMotorSimple.Direction.REVERSE);
+        Fintake.setDirection(DcMotorSimple.Direction.REVERSE);
 
     }
     @Override
@@ -68,11 +69,13 @@ public class CC_All_Rights_Reserved extends OpMode {
             imu_called_bob.resetYaw();
         }
 
-        if (gamepad1.a){
-            Fintake.setPower(0.35);
-        } else if (gamepad1.b) {
+        if (gamepad1.left_trigger>0.3) {
+            Fintake.setPower(-0.3);
+        } else if (gamepad1.left_bumper){
             Fintake.setPower(-1);
-        } else{
+        } else if (gamepad1.a) {
+            Fintake.setPower(0.7);
+        } else {
             Fintake.setPower(0);
         }
 
