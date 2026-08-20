@@ -28,6 +28,13 @@ public class SFC1872_L extends OpMode {
         frontRight.setDirection(DcMotorSimple.Direction.FORWARD);
         backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
 
+        frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+
+
         london = hardwareMap.get(IMU.class,"imu");
         RevHubOrientationOnRobot london_bridge = new RevHubOrientationOnRobot(RevHubOrientationOnRobot.LogoFacingDirection.UP, RevHubOrientationOnRobot.UsbFacingDirection.RIGHT);
         IMU.Parameters london_tower=new IMU.Parameters(london_bridge);
@@ -50,7 +57,7 @@ public class SFC1872_L extends OpMode {
             london.resetYaw();
         }
 
-        double SPEED = 0.5;
+        double SPEED = 1;
 
         frontLeft.setPower((forward+turn+strafe)*SPEED);
         frontRight.setPower((forward-turn-strafe)*SPEED);
