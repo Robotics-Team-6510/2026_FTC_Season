@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.hardware.IMU;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
-@TeleOp(group="Other Samples")
+@TeleOp
 public class NEW_BuiltDifferent_Teleop extends OpMode
 {
     // Declare Motors, Variables, and Functions
@@ -18,6 +18,12 @@ public class NEW_BuiltDifferent_Teleop extends OpMode
     private DcMotor FLMotor;
     private DcMotor BRMotor;
     private DcMotor BLMotor;
+
+    private DcMotor Fintake;
+
+    private double power = 2;
+
+
 
     private IMU imu;
 
@@ -30,6 +36,7 @@ public class NEW_BuiltDifferent_Teleop extends OpMode
         FLMotor = hardwareMap.get(DcMotor.class, "fl");
         BRMotor = hardwareMap.get(DcMotor.class, "br");
         BLMotor = hardwareMap.get(DcMotor.class, "bl");
+        Fintake = hardwareMap.get(DcMotor.class, "fin");
 
         // One side of motors will always need to be reversed so that they all spin in the same direction.
         FRMotor.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -58,32 +65,59 @@ public class NEW_BuiltDifferent_Teleop extends OpMode
     @Override
     public void loop() {
         // Collect Necessary Data from Gamepad in This Loop
-        double y = gamepad1.left_stick_y;
+        double y = -gamepad1.left_stick_y;
         double Turn = gamepad1.right_stick_x;
         double x = gamepad1.left_stick_x;
 
         if (gamepad1.options) {
             imu.resetYaw();
         }
+        double botHeading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
 
-        double botHeading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
+        double strafe = x * Math.cos(-botHeading) - y * Math.sin(-botHeading);
 
-        double rotY = y * Math.cos(-botHeading) - x * Math.sin(-botHeading);
-
-        double rotX = y * Math.sin(-botHeading) + x * Math.cos(-botHeading);
+        double forwards = x * Math.sin(-botHeading) + y * Math.cos(-botHeading);
 
 
 
         // Calculate the power for each Motor, combine the 3 above commented sections, multiply by the Scaler
-        double FRPower = (rotY + Turn + rotX);
-        double FLPower = (rotY - Turn -rotX);
-        double BRPower = (rotY + Turn -rotX);
-        double BLPower = (rotY - Turn + rotX);
+        double FRPower = (forwards - Turn - strafe);
+        double FLPower = (forwards + Turn +strafe);
+        double BRPower = (forwards - Turn +strafe);
+        double BLPower = (forwards + Turn - strafe);
 
         // Set the power of the motors
         FRMotor.setPower(FRPower);
         FLMotor.setPower(FLPower);
         BRMotor.setPower(BRPower);
         BLMotor.setPower(BLPower);
+
+        if (gamepad1.left_bumper){
+            Fintake.setPower(1);
+        } else if (gamepad1.right_bumper){
+            Fintake.setPower(-power);
+        }
+        else {
+            Fintake.setPower(0);
+        }
+
+
+        if(gamepad1.dpadUpWasPressed()){
+            power += 0.1;
+        }
+
+        if(gamepad1.dpadDownWasPressed()){
+            power -= 0.1;
+        }
+
+
+
+
+        telemetry.addData("slay", imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES));
+        telemetry.addData("yay", power);
+        telemetry.update();
+
+
+
     }
 }
