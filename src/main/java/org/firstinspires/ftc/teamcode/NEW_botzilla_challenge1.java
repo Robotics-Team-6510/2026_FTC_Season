@@ -19,6 +19,7 @@ public class NEW_botzilla_challenge1 extends OpMode {
     DcMotor FL;
     DcMotor BR;
     DcMotor BL;
+    DcMotor IN;
 
     IMU imu;
 
@@ -29,6 +30,7 @@ public class NEW_botzilla_challenge1 extends OpMode {
         FL = hardwareMap.get(DcMotor.class, "front left");
         BL = hardwareMap.get(DcMotor.class, "back left");
         BR = hardwareMap.get(DcMotor.class, "back right");
+        IN = hardwareMap.get(DcMotor.class, "intake");
 
         imu = hardwareMap.get(IMU.class, "imu");
 
@@ -56,6 +58,14 @@ public class NEW_botzilla_challenge1 extends OpMode {
             imu.resetYaw();
         }
 
+        if(gamepad1.left_bumper){
+            IN.setPower(0.6);
+        } else if(gamepad1.right_bumper){
+            IN.setPower(-0.6);
+        } else {
+            IN.setPower(0);
+        }
+
         double angle = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
 
         double forward = x * Math.sin(-angle) + y * Math.cos(-angle);
@@ -79,8 +89,6 @@ public class NEW_botzilla_challenge1 extends OpMode {
 
         telemetry.addData("caption", imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES));
         telemetry.update();
-
-
     }
 
 }
