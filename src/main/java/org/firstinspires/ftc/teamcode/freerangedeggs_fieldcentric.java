@@ -4,6 +4,7 @@ import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.IMU;
@@ -17,6 +18,8 @@ public class freerangedeggs_fieldcentric extends OpMode {
     private DcMotor frontLeft;
     private DcMotor backRight;
     private DcMotor backLeft;
+
+    CRServo johnno, tom;
 
     private IMU imu;
 
@@ -36,6 +39,11 @@ public class freerangedeggs_fieldcentric extends OpMode {
         backRight = hardwareMap.get(DcMotor.class, "backRight");
         backLeft = hardwareMap.get(DcMotor.class, "backLeft");
         intake = hardwareMap.get(DcMotor.class, "intake");
+
+
+        tom = hardwareMap.get(CRServo.class, "sr");
+        johnno = hardwareMap.get(CRServo.class, "l");
+
         // One side of motors will always need to be reversed so that they all spin in the same direction.
         frontRight.setDirection(DcMotorSimple.Direction.REVERSE);
         frontLeft.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -96,12 +104,19 @@ public class freerangedeggs_fieldcentric extends OpMode {
         backLeft.setPower(BLPower);
 
         if (gamepad1.left_bumper) {
-            intake.setPower(0.6);
+            intake.setPower(1);
+            tom.setPower(1);
+            johnno.setPower(1);
         } else if (gamepad1.left_trigger > 0) {
             intake.setPower(-0.45);
         } else {
             intake.setPower(0);
+            tom.setPower(0);
+            johnno.setPower(0);
         }
+
+
+
 
 
 
