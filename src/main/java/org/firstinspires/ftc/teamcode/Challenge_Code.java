@@ -69,6 +69,8 @@ public class Challenge_Code extends OpMode {
             if (speed < 0.1) speed = 0.1;
         } else if (gamepad1.y) {
             speed = 0.85;
+        } else if (gamepad1.right_trigger_pressed) {
+            speed = 0.3;
         }
 
         if (gamepad1.options) {
