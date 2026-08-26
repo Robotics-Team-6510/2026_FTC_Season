@@ -17,6 +17,7 @@ public class Shrek_Steak extends OpMode
     private DcMotor BackRightMotor;
     private DcMotor BackLeftMotor;
     private DcMotor IntakeMotor;
+    private DcMotor FeederMotor;
     private IMU Gyro;
     private boolean toggle;
     private double speed_multiplier;
@@ -32,6 +33,7 @@ public class Shrek_Steak extends OpMode
         BackRightMotor = hardwareMap.get(DcMotor.class, "br");
         BackLeftMotor = hardwareMap.get(DcMotor.class, "bl");
         IntakeMotor = hardwareMap.get(DcMotor.class,  "intake");
+        FeederMotor = hardwareMap.get(DcMotor.class, "feeder");
         Gyro = hardwareMap.get(IMU.class,"imu");
 
         FrontRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -39,6 +41,7 @@ public class Shrek_Steak extends OpMode
         BackRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         BackLeftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         IntakeMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        FeederMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
         toggle = false;
         speed_multiplier = 0.75;
@@ -59,6 +62,8 @@ public class Shrek_Steak extends OpMode
         double X_axis = gamepad1.left_stick_x;
         boolean intake_button = gamepad1.right_bumper;
         boolean outake_button = gamepad1.left_bumper;
+
+
 
         double CurrentYaw = Gyro.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
 
@@ -88,11 +93,15 @@ public class Shrek_Steak extends OpMode
 
         if(intake_button) {
             IntakeMotor.setPower(1);
+            FeederMotor.setPower(1);
         } else if (outake_button) {
             IntakeMotor.setPower(-1);
+            FeederMotor.setPower(-1);
         } else {
             IntakeMotor.setPower(0);
+            FeederMotor.setPower(0);
         }
+
 
         double front_left_power = (forward_and_back + left_and_right + turn) / Normalise * speed_multiplier;
         double back_left_power = (forward_and_back - left_and_right + turn) / Normalise * speed_multiplier;
