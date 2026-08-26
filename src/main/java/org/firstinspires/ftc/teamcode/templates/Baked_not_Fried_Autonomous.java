@@ -17,28 +17,44 @@ import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 // Do NOT give it a name "name = "something"", leave the name blank, and it will use the filename
 // Code with the same group name will be grouped together in the driver station
 @Autonomous(group = "Baked_not_Fried_Autonomous")
+
 public class Baked_not_Fried_Autonomous extends LinearOpMode {
     // Declare OpMode members, put motors, devices, etc all here. i.e: private DcMotor LeftFront;
 
+
+    private DcMotor RF, RB, LF, LB, I, F, Out;
     @Override
-    public void runOpMode() {
+    public void move(int distance, double speed) {
         // Run Once Here
-        DcMotor RF, RB, LF, LB, I, F, Out;
 
-        RF = hardwareMap.get(DcMotor.class, "rf");
-        RB = hardwareMap.get(DcMotor.class, "rb");
-        LF = hardwareMap.get(DcMotor.class, "lf");
-        LB = hardwareMap.get(DcMotor.class, "lb");
-        I = hardwareMap.get(DcMotor.class, "i");
-        F = hardwareMap.get(DcMotor.class, "f");
-        Out = hardwareMap.get(DcMotor.class, "out");
+        RF.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        RB.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        LF.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        LB.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        RF.setDirection(DcMotorSimple.Direction.FORWARD);
-        RB.setDirection(DcMotorSimple.Direction.FORWARD);
-        LF.setDirection(DcMotorSimple.Direction.REVERSE);
-        LB.setDirection(DcMotorSimple.Direction.REVERSE);
+        RF.setTargetPosition(distance);
+        RB.setTargetPosition(distance);
+        LF.setTargetPosition(distance);
+        LB.setTargetPosition(distance);
+
+        RF.setPower(speed);
+        RB.setPower(speed);
+        LF.setPower(speed);
+        LB.setPower(speed);
+
+        RF.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        RB.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        LF.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        LB.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        while(RF.isBusy() || RB.isBusy() || LF.isBusy() || LB.isBusy())  Run Once Here
+
+            waitForStart();
+            // Auto Sequence
+        }
 
 
+    }
 
 
 
