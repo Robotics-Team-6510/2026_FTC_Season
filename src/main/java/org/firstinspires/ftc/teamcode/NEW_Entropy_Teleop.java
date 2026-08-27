@@ -33,6 +33,10 @@ public class NEW_Entropy_Teleop extends OpMode {
         back_right.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         back_left.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
+        front_left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        front_left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+
         imu = hardwareMap.get(IMU.class, "imu");
 
         IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
@@ -72,7 +76,6 @@ public class NEW_Entropy_Teleop extends OpMode {
             back_right.setPower((forward - turn + strafe));
         }
 
-
         if (gamepad1.left_stick_button) {
             chelsea_is_so_67.setPower(1);
         } else if (gamepad1.right_stick_button){
@@ -82,10 +85,8 @@ public class NEW_Entropy_Teleop extends OpMode {
             chelsea_is_so_67.setPower(0);
         }
 
-
-
-
-
+        telemetry.addData("Motor Position", front_left.getCurrentPosition());
+        telemetry.update();
 
     }
 }
