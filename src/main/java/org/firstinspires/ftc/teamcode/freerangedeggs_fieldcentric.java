@@ -19,7 +19,7 @@ public class freerangedeggs_fieldcentric extends OpMode {
     private DcMotor backRight;
     private DcMotor backLeft;
 
-    CRServo johnno, tom;
+    CRServo servo1, tom;
 
     private IMU imu;
 
@@ -42,7 +42,7 @@ public class freerangedeggs_fieldcentric extends OpMode {
 
 
         tom = hardwareMap.get(CRServo.class, "sr");
-        johnno = hardwareMap.get(CRServo.class, "l");
+        servo1 = hardwareMap.get(CRServo.class, "l");
 
         // One side of motors will always need to be reversed so that they all spin in the same direction.
         frontRight.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -106,13 +106,13 @@ public class freerangedeggs_fieldcentric extends OpMode {
         if (gamepad1.left_bumper) {
             intake.setPower(1);
             tom.setPower(1);
-            johnno.setPower(1);
+            servo1.setPower(1);
         } else if (gamepad1.left_trigger > 0) {
             intake.setPower(-0.45);
         } else {
             intake.setPower(0);
             tom.setPower(0);
-            johnno.setPower(0);
+            servo1.setPower(0);
         }
 
 
