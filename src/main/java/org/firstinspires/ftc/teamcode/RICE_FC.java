@@ -63,7 +63,7 @@ public class RICE_FC extends OpMode {
         rf_motor.setPower(drive_power*(rotForward - turn - rotStrafe));
         rb_motor.setPower(drive_power*(rotForward - turn + rotStrafe));
 
-        double current = gamepad1.right_trigger;
+        double current = gamepad2.right_trigger;
 
         if (gamepad1.right_bumper) {
             drive_power = 0.8;
@@ -102,6 +102,13 @@ public class RICE_FC extends OpMode {
 //        else {
 //            intake.setPower(0);
 //        }
+
+        if  (gamepad2.dpadUpWasPressed()){
+            best += 0.1;
+        }
+        if (gamepad2.dpadDownWasPressed()){
+            best -=0.1;
+        }
 
 
 
