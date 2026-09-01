@@ -20,6 +20,8 @@ public class Team_name_Auto extends LinearOpMode {
     private IMU imu;
     private DcMotor I1Motor;
 
+    private double Threshold = 0.05;
+
     @Override
     public void runOpMode() {
         // INIT SECTION
@@ -42,6 +44,32 @@ public class Team_name_Auto extends LinearOpMode {
         sleep(2000);
         I1Motor.setPower(0);
 
+        FRMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        FLMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        BRMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        BLMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        FRMotor.setTargetPosition(1000);
+        FLMotor.setTargetPosition(1000);
+        BRMotor.setTargetPosition(1000);
+        BLMotor.setTargetPosition(1000);
+
+        FRMotor.setPower(1);
+        FLMotor.setPower(1);
+        BRMotor.setPower(1);
+        BLMotor.setPower(1);
+
+        FRMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        FLMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        BRMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        BLMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        while (FRMotor.isBusy()||FLMotor.isBusy() ||BRMotor.isBusy() || BLMotor.isBusy() ) {
+            if(FRMotor.getPower() < Threshold && BRMotor.getPower() < Threshold &&
+                    BLMotor.getPower() < Threshold && BRMotor.getPower() < Threshold) {
+                break;
+            }
+        }
 
 
     }
