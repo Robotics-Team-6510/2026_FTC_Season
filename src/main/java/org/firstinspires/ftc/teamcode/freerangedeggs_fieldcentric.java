@@ -121,6 +121,10 @@ public class freerangedeggs_fieldcentric extends OpMode {
 
 
         telemetry.addData("heading", imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES));
+        telemetry.addData("right front motors position yall", frontRight.getCurrentPosition());
+        telemetry.addData("left front motors position yall",frontLeft.getCurrentPosition());
+        telemetry.addData("back left motors position yall",backLeft.getCurrentPosition());
+        telemetry.addData("back right motors position yall",backRight.getCurrentPosition());
         telemetry.update();
 
 
