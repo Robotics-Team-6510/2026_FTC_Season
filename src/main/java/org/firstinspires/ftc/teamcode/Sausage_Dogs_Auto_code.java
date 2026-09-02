@@ -110,6 +110,9 @@ public class Sausage_Dogs_Auto_code extends LinearOpMode {
     public void runOpMode() {
         // Run Once Here
         // linking to config
+
+        // init
+
         FrontRight = hardwareMap.get(DcMotor.class, "FRW");
         FrontLeft = hardwareMap.get(DcMotor.class, "FLW");
         BackLeft = hardwareMap.get(DcMotor.class, "BLW");
@@ -127,17 +130,26 @@ public class Sausage_Dogs_Auto_code extends LinearOpMode {
 
         waitForStart();
         // Auto Sequence
-        AllSetPower(0.5);
-        AllRunToPosition();
-        AllStopAndResetEncoder();
-        AllSetTargetPosition(1024);
-        while(AllBusy()){}
+//        AllSetPower(0.5);
+//        AllRunToPosition();
+//        AllStopAndResetEncoder();
+//        AllSetTargetPosition(1024);
+//        while(AllBusy()){}
+//
+//        FirstFeeder.setPower(1);
+//        AllDrive(1000, 1);
+//        FirstFeeder.setPower(0);
+//        AllTurn(-1, 60, 0.8);
+//        AllStrafe(2000,0.6);
 
         FirstFeeder.setPower(1);
-        AllDrive(1000, 1);
         FirstFeeder.setPower(0);
-        AllTurn(-1, 60, 0.8);
-        AllStrafe(2000,0.6);
+
+
+
+
+
+
 
     }
 
