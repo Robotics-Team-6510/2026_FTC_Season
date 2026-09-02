@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.IMU;
 
 @Autonomous
-public class Challenge_5_Wayfinder extends LinearOpMode {
+public class Challenge_6_Wayfinder extends LinearOpMode {
     // declare varisbles
 
     DcMotor FRwheel, FLwheel, BRwheel, BLwheel, Fintake ;
@@ -48,15 +48,15 @@ public class Challenge_5_Wayfinder extends LinearOpMode {
         waitForStart();
         // actual code
 
-        forwards(0.4,2000);
+        forwards(0.4,2);
         turn(0.4,1000);
-        forwards(0.4,4000);
+        forwards(0.4,6);
         turn(0.4,1000);
-        forwards(0.4,4000);
+        forwards(0.4,6);
         turn(0.4,1000);
-        forwards(0.4,4000);
+        forwards(0.4,6);
         turn(0.4,1000);
-        forwards(0.4,2000);
+        forwards(0.4,3);
 
 
 
@@ -70,10 +70,10 @@ public class Challenge_5_Wayfinder extends LinearOpMode {
         BRwheel.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         BLwheel.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        FRwheel.setTargetPosition(target_postition);
-        FLwheel.setTargetPosition(target_postition);
-        BRwheel.setTargetPosition(target_postition);
-        BLwheel.setTargetPosition(target_postition);
+        FRwheel.setTargetPosition(target_postition*984);
+        FLwheel.setTargetPosition(target_postition*904);
+        BRwheel.setTargetPosition(target_postition*984);
+        BLwheel.setTargetPosition(target_postition*984);
 
         FRwheel.setPower(speed);
         FLwheel.setPower(speed);

@@ -44,8 +44,8 @@ public class CC_All_Rights_Reserved extends OpMode {
 
         //hihihihio
 
-        FLwheel.setDirection(DcMotorSimple.Direction.REVERSE);
-        BLwheel.setDirection(DcMotorSimple.Direction.REVERSE);
+        FRwheel.setDirection(DcMotorSimple.Direction.REVERSE);
+        BRwheel.setDirection(DcMotorSimple.Direction.REVERSE);
         Fintake.setDirection(DcMotorSimple.Direction.REVERSE);
 
     }
@@ -53,9 +53,9 @@ public class CC_All_Rights_Reserved extends OpMode {
     public void loop(){
         // 3 - actual robot code
 
-        double forwards = gamepad1.left_stick_y;
+        double forwards = -gamepad1.left_stick_y;
         double turn = gamepad1.right_stick_x;
-        double sideways = -gamepad1.left_stick_x;
+        double sideways = gamepad1.left_stick_x;
 
         double whatever_you_want_dont_type_in_whatever_you_want =  imu_called_bob.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
 
@@ -83,10 +83,10 @@ public class CC_All_Rights_Reserved extends OpMode {
         }
 
 
-        FRwheel.setPower(drivePower*(rotForwards + turn - rotStrafe));
-        FLwheel.setPower(drivePower*(rotForwards - turn + rotStrafe));
-        BRwheel.setPower(drivePower*(rotForwards + turn + rotStrafe));
-        BLwheel.setPower(drivePower*(rotForwards - turn - rotStrafe));
+        FRwheel.setPower(drivePower*(rotForwards - turn - rotStrafe));
+        FLwheel.setPower(drivePower*(rotForwards + turn + rotStrafe));
+        BRwheel.setPower(drivePower*(rotForwards - turn + rotStrafe));
+        BLwheel.setPower(drivePower*(rotForwards + turn - rotStrafe));
 
 
         telemetry.addData("robot heading", imu_called_bob.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES));
