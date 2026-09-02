@@ -24,6 +24,13 @@ public class Template_Autonomous extends LinearOpMode {
     @Override
     public void runOpMode() {
         // Run Once Here
+        RF = hardwareMap.get(DcMotor.class, "rf");
+        RB = hardwareMap.get(DcMotor.class, "rb");
+        LF = hardwareMap.get(DcMotor.class, "lf");
+        LB = hardwareMap.get(DcMotor.class, "lb");
+        I = hardwareMap.get(DcMotor.class, "i");
+        F = hardwareMap.get(DcMotor.class, "f");
+        Out = hardwareMap.get(DcMotor.class, "out");
 
         waitForStart();
         // Auto Sequence

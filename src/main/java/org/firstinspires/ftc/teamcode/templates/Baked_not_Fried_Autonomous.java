@@ -23,7 +23,7 @@ public class Baked_not_Fried_Autonomous extends LinearOpMode {
 
 
     private DcMotor RF, RB, LF, LB, I, F, Out;
-    @Override
+
     public void move(int distance, double speed) {
         // Run Once Here
 
@@ -47,14 +47,14 @@ public class Baked_not_Fried_Autonomous extends LinearOpMode {
         LF.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         LB.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        while(RF.isBusy() || RB.isBusy() || LF.isBusy() || LB.isBusy())  Run Once Here
+        while(RF.isBusy() || RB.isBusy() || LF.isBusy() || LB.isBusy()) {//  Run Once Here
 
             waitForStart();
             // Auto Sequence
         }
 
 
-    }
+
 
 
 
@@ -63,4 +63,23 @@ public class Baked_not_Fried_Autonomous extends LinearOpMode {
         // Auto Sequence
     }
 
+    @Override
+    public void runOpMode(){
+        RF = hardwareMap.get(DcMotor.class, "rf");
+        RB = hardwareMap.get(DcMotor.class, "rb");
+        LF = hardwareMap.get(DcMotor.class, "lf");
+        LB = hardwareMap.get(DcMotor.class, "lb");
+        I = hardwareMap.get(DcMotor.class, "i");
+        F = hardwareMap.get(DcMotor.class, "f");
+        Out = hardwareMap.get(DcMotor.class, "out");
+
+        RF.setDirection(DcMotorSimple.Direction.REVERSE);
+        RB.setDirection(DcMotorSimple.Direction.REVERSE);
+        LF.setDirection(DcMotorSimple.Direction.REVERSE);
+        LB.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        move(1000, 10.5);
+        
+
+    }
 }
