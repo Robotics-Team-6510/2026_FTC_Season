@@ -42,26 +42,28 @@ public class Baked_not_Fried_Autonomous extends LinearOpMode {
         LF.setPower(speed);
         LB.setPower(speed);
 
-        RF.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        RB.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        LF.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        LB.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        RF.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        RB.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        LF.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        LB.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        while(RF.isBusy() || RB.isBusy() || LF.isBusy() || LB.isBusy()) {//  Run Once Here
 
-            waitForStart();
-            // Auto Sequence
+    }
+
+    public void turnLeft(double speed)  {
+        RF.setPower(speed);
+        RB.setPower(speed);
+        LF.setPower(-speed);
+        LB.setPower(-speed);
         }
 
-
-
-
-
-
-
-        waitForStart();
-        // Auto Sequence
+    public void turnRight(double speed) {
+        RF.setPower(-speed);
+        RB.setPower(-speed);
+        LF.setPower(speed);
+        LB.setPower(speed);
     }
+
 
     @Override
     public void runOpMode(){
@@ -71,15 +73,24 @@ public class Baked_not_Fried_Autonomous extends LinearOpMode {
         LB = hardwareMap.get(DcMotor.class, "lb");
         I = hardwareMap.get(DcMotor.class, "i");
         F = hardwareMap.get(DcMotor.class, "f");
-        Out = hardwareMap.get(DcMotor.class, "out");
+
 
         RF.setDirection(DcMotorSimple.Direction.REVERSE);
         RB.setDirection(DcMotorSimple.Direction.REVERSE);
-        LF.setDirection(DcMotorSimple.Direction.REVERSE);
-        LB.setDirection(DcMotorSimple.Direction.REVERSE);
+        LF.setDirection(DcMotorSimple.Direction.FORWARD);
+        LB.setDirection(DcMotorSimple.Direction.FORWARD);
 
-        move(1000, 10.5);
-        
+
+        waitForStart();
+
+       // move(1000, 10.5);
+        turnLeft(1);
+      //  move(1000, 10.5);
+
+
+        while(RF.isBusy() || RB.isBusy() || LF.isBusy() || LB.isBusy()) {//  Run Once Here
+            waitForStart();
+        }
 
     }
 }

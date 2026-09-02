@@ -13,7 +13,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 public class Baked_not_fried_Teleop extends OpMode {
     // 1 - declare variables
 
-    DcMotor RF, RB, LF, LB, I, F, Out;
+    DcMotor RF, RB, LF, LB, I, F;
 
     IMU imu;
 
@@ -27,7 +27,7 @@ public class Baked_not_fried_Teleop extends OpMode {
         LB = hardwareMap.get(DcMotor.class, "lb");
         I = hardwareMap.get(DcMotor.class, "i");
         F = hardwareMap.get(DcMotor.class, "f");
-        Out = hardwareMap.get(DcMotor.class, "out");
+     //   Out = hardwareMap.get(DcMotor.class, "out");
 
 
         imu = hardwareMap.get(IMU.class, "imu");
@@ -38,6 +38,7 @@ public class Baked_not_fried_Teleop extends OpMode {
         RB.setDirection(DcMotorSimple.Direction.FORWARD);
         LF.setDirection(DcMotorSimple.Direction.REVERSE);
         LB.setDirection(DcMotorSimple.Direction.REVERSE);
+        F.setDirection(DcMotorSimple.Direction.REVERSE);
 
         IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
                 RevHubOrientationOnRobot.LogoFacingDirection.UP,
