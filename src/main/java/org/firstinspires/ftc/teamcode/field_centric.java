@@ -16,7 +16,7 @@ public class field_centric extends OpMode {
     private IMU imu;
     //inertial measurement unit
 
-    // DcMotor shartake;
+    DcMotor shartake;
 
     @Override
     public void init(){
@@ -25,7 +25,7 @@ public class field_centric extends OpMode {
         tr = hardwareMap.get(DcMotor.class, "tr");
         bl = hardwareMap.get(DcMotor.class, "bl");
         br = hardwareMap.get(DcMotor.class, "br");
-        // shartake = hardwareMap.get(DcMotor.class, "intake");
+        shartake = hardwareMap.get(DcMotor.class, "intake");
 
         imu = hardwareMap.get(IMU.class, "imu");
 
@@ -66,6 +66,12 @@ public class field_centric extends OpMode {
             tr.setPower((forward - turnright+strafe)/2);
             bl.setPower((forward + turnright- strafe)/2);
             br.setPower((forward - turnright+ strafe)/2);
+        }
+
+        if (gamepad1.right_bumper) {
+            shartake.setPower(1);
+        } else {
+            shartake.setPower(0);
         }
 
 
