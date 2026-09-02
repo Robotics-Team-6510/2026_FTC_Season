@@ -91,7 +91,7 @@ public class Sausage_Dogs_Auto_code extends LinearOpMode {
         AllRunNormal();
         double Yaw = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
         double difference = Math.abs(angle - Math.abs(Yaw));
-        while(difference > 2) {
+        while(difference >         2) {
             Yaw = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
             difference = Math.abs(angle - Math.abs(Yaw));
             double speed = difference / 20 + 0.1;
