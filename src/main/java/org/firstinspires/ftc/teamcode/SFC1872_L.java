@@ -11,7 +11,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 @TeleOp()
 public class SFC1872_L extends OpMode {
     // Declare Variables
-    private DcMotor frontLeft, frontRight, backRight, backLeft,intake;
+    private DcMotor frontLeft, frontRight, backRight, backLeft,intake,ontake2;
     private IMU london;
 
     @Override
@@ -22,6 +22,7 @@ public class SFC1872_L extends OpMode {
         backLeft = hardwareMap.get(DcMotor.class, "backleftwheel");
         backRight = hardwareMap.get(DcMotor.class, "backrightwheel");
         intake = hardwareMap.get(DcMotor.class, "intake");
+        ontake2=hardwareMap.get(DcMotor.class,"ontake2");
 
         frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         backRight.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -70,6 +71,14 @@ public class SFC1872_L extends OpMode {
             intake.setPower(-1);
         } else {
             intake.setPower(0);
+        }
+
+        if (gamepad1.right_trigger > 0.5) {
+            ontake2.setPower(1);
+        }else if (gamepad1.left_trigger > 0.5) {
+            ontake2.setPower(-1);
+        } else {
+            ontake2.setPower(0);
         }
 
         telemetry.addData("anything", london.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES));
