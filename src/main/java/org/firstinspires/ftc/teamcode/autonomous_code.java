@@ -44,6 +44,27 @@ public class autonomous_code extends LinearOpMode {
         return needWait;
     }
 
+    private void forwardBackward(double pow, int target) {
+        setPowerAll(pow);
+        FRMotor.setTargetPosition(target);
+        FLMotor.setTargetPosition(target);
+        BRMotor.setTargetPosition(target);
+        BLMotor.setTargetPosition(target);
+        runPositionAll();
+        while (waitMotor()) {}
+        stop_resetCoder();
+
+    }
+    private void rotation(double pow, int target){
+        setPowerAll(pow);
+        FRMotor.setTargetPosition(target);
+        FLMotor.setTargetPosition(-target);
+        BRMotor.setTargetPosition(target);
+        BLMotor.setTargetPosition(-target);
+        runPositionAll();
+        while (waitMotor()) {}
+        stop_resetCoder();
+    }
     @Override
     public void runOpMode() {
         // init
@@ -68,11 +89,8 @@ public class autonomous_code extends LinearOpMode {
 
         waitForStart();
         // Auto Sequence
-        setPowerAll(0.5);
-        FRMotor.setTargetPosition(1024);
-        runPositionAll();
-        while(waitMotor()){}
-        stop_resetCoder();
+        forwardBackward(0.5, 1024);
+        rotation(0.8, -400);
 
 
         FIntakeMotor.setPower(1);
