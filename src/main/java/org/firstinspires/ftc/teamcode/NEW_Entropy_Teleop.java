@@ -23,7 +23,7 @@ public class NEW_Entropy_Teleop extends OpMode {
         back_left = hardwareMap.get(DcMotor.class, "back_left");
         back_right = hardwareMap.get(DcMotor.class, "back_right");
 
-        chelsea_is_so_67=hardwareMap.get(DcMotor.class,"intake");
+        chelsea_is_so_67 = hardwareMap.get(DcMotor.class,"intake");
 
         front_right.setDirection(DcMotorSimple.Direction.REVERSE);
         back_right.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -85,7 +85,10 @@ public class NEW_Entropy_Teleop extends OpMode {
             chelsea_is_so_67.setPower(0);
         }
 
-        telemetry.addData("Motor Position", front_left.getCurrentPosition());
+        telemetry.addData("front left motor posit yo", front_left.getCurrentPosition());
+        telemetry.addData("front right motor position", front_right.getCurrentPosition());
+        telemetry.addData("back left motor position", back_left.getCurrentPosition());
+        telemetry.addData("back right motor position", back_right.getCurrentPosition());
         telemetry.update();
 
     }
