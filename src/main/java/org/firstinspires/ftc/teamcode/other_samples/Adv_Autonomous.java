@@ -135,8 +135,10 @@ public class Adv_Autonomous extends OpMode {
         YawPitchRollAngles orientation = Gyro.getRobotYawPitchRollAngles();
         double facing = orientation.getYaw(AngleUnit.DEGREES);
         double difference = abs(angle-abs(facing));
+        double drop_off_angle = 20;
         if (difference>2) {
-            double scaler = difference + 0.1;
+            double scaler = difference/drop_off_angle + 0.1;
+            if(scaler > 1) scaler = 1;
             FRMotor.setPower(power * direction * scaler);
             FLMotor.setPower(power * direction * scaler);
             BRMotor.setPower(-power * direction * scaler);
