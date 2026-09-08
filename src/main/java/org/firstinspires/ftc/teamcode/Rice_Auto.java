@@ -59,7 +59,6 @@ public class Rice_Auto extends LinearOpMode {
         return bob*bob+1;
     }
 
-
     void forward(int distance, double power){
         lf_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         lb_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
