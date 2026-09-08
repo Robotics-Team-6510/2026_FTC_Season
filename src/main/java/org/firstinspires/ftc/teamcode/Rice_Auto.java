@@ -106,7 +106,7 @@ public class Rice_Auto extends LinearOpMode {
         rf_motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         rb_motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
+        while (lf_motor.isBusy()) { }
 
-
-        }
+    }
     }
