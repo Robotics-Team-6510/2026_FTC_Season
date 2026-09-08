@@ -1,17 +1,12 @@
-package org.firstinspires.ftc.teamcode.templates;
+package org.firstinspires.ftc.teamcode;
 // ^^ Must match the folder our Java Class is in, check the left hand side of the screen.
 
 // Prewritten Code that is imported so we don't have to write EVERYTHING from scratch.
 // Delete what you don't need.
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.IMU;
-import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
-import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 
 // @Autonomous so it shows up in the right area of the Driver Station
 // Do NOT give it a name "name = "something"", leave the name blank, and it will use the filename
@@ -41,7 +36,7 @@ public class freerangedeggsautonomous extends LinearOpMode {
 //        backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 //        backLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        frontRight.setDirection(DcMotorSimple.Direction.REVERSE);
+        frontRight.setDirection(DcMotorSimple.Direction.FORWARD);
         frontLeft.setDirection(DcMotorSimple.Direction.FORWARD);
         backRight.setDirection(DcMotorSimple.Direction.REVERSE);
         backLeft.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -74,11 +69,7 @@ public class freerangedeggsautonomous extends LinearOpMode {
         backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         backLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-
-
-        sleep(3000);
-
-
+        while (frontLeft.isBusy()) {      } // waits until front left motor is not busy
 
         // Auto Sequence
     }
