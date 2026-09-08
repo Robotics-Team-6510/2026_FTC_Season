@@ -41,11 +41,8 @@ public class Rice_Auto extends LinearOpMode {
         // Auto Sequence
         // 3 - auto code
 
-        intake.setPower(-1);
-        sleep(5000);
-        intake.setPower(0);
+        turn(1000,1);
 
-        forward(1000,1);
 
 
 
@@ -57,6 +54,7 @@ public class Rice_Auto extends LinearOpMode {
     int square(int bob, double jeff){
         return bob*bob+1;
     }
+
 
     void forward(int distance, double power){
         lf_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -81,6 +79,28 @@ public class Rice_Auto extends LinearOpMode {
 
         while (lf_motor.isBusy()) {  }
 
-    }
-
 }
+
+    void turn(int distance, double power){
+        lf_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        lb_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rf_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rb_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        lf_motor.setTargetPosition(distance); // TICKS
+        lb_motor.setTargetPosition(distance);
+        rf_motor.setTargetPosition(distance);
+        rb_motor.setTargetPosition(distance);
+
+        lf_motor.setPower(power);
+        lb_motor.setPower(power);
+        rf_motor.setPower(-power);
+        rb_motor.setPower(-power);
+
+        lf_motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        lb_motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rf_motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rb_motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        }
+    }
