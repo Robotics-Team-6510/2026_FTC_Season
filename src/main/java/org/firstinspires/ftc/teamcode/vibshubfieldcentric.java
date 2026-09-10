@@ -16,6 +16,7 @@ public class vibshubfieldcentric extends OpMode {
     private DcMotor BRMotor;
     private DcMotor BLMotor;
     private DcMotor FIntakeMotor;
+    private DcMotor OuttakeMotor;
 
     // Retrieve the IMU from the hardware map
     private IMU imu;
@@ -29,6 +30,7 @@ public class vibshubfieldcentric extends OpMode {
         BLMotor = hardwareMap.get(DcMotor.class, "bl");
 
         FIntakeMotor = hardwareMap.get(DcMotor.class, "fi");
+        OuttakeMotor = hardwareMap.get(DcMotor.class, "CHANGELATER");
 
         // One side of motors will always need to be reversed so that they all spin in the same direction.
         FRMotor.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -60,6 +62,15 @@ public class vibshubfieldcentric extends OpMode {
         } else {
             FIntakeMotor.setPower(0.0);
         }
+
+        if (gamepad1.a) {
+            OuttakeMotor.setPower(1.0);
+        } else if (gamepad1.b) {
+            OuttakeMotor.setPower(-1.0);
+        } else {
+            OuttakeMotor.setPower(0);
+        }
+
 
         double y = -gamepad1.left_stick_y; // Remember, Y stick value is reversed
         double x = gamepad1.left_stick_x;
