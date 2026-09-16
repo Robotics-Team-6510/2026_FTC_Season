@@ -23,8 +23,6 @@ public class NEW_BuiltDifferent_Teleop extends OpMode
 
     private double power = 2;
 
-
-
     private IMU imu;
 
 
@@ -78,8 +76,6 @@ public class NEW_BuiltDifferent_Teleop extends OpMode
 
         double forwards = x * Math.sin(-botHeading) + y * Math.cos(-botHeading);
 
-
-
         // Calculate the power for each Motor, combine the 3 above commented sections, multiply by the Scaler
         double FRPower = (forwards - Turn - strafe);
         double FLPower = (forwards + Turn +strafe);
@@ -109,8 +105,6 @@ public class NEW_BuiltDifferent_Teleop extends OpMode
         if(gamepad1.dpadDownWasPressed()){
             power -= 0.1;
         }
-
-
 
 
         telemetry.addData("slay", imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES));
