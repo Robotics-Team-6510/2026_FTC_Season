@@ -29,9 +29,30 @@ Under the driver station, ensure:
 - Driver Station Layout > Landscape
 - Robot Controller Name > TeamNumber-RC (Team number should be found somewhere, CANNOT BE TEAM NAME ANYMORE)
 - Driver Station Name > TeamNumber-DS
-> Start getting teams familiar with their team number as well so that they remember
+> Start getting teams familiar with their team number as well so that they remember. See below for Team Numbers.
 
 ### Program & Manage
 - Manage > Wifi Band > 5GHz
 - Manage > Wifi Channel > auto (5GHz)
 > Then Click (Apply WiFi Settings)
+
+## Team Numbers
+| Team Number  | Team Name |
+| -------------: |:-------------|
+|18363|RICE|
+|18359|Pymble Kids|
+|12554|Pymble Panthers|
+|18362|Shark Beach|
+|23875|Free Range Eggs|
+|35924|Team Name|
+|35958|SFC1872L|
+|35971|Baked Not Fried|
+|35978|Sausage Dog|
+|35986|Shrek Steak|
+|35992|(C) All Rights Reserved|
+|35997|Built Different Gang|
+|36003|Botzilla|
+|36005|Entropy|
+|36006|VIBS Hub|
+|23636|Pymble Bees|
+|18360|Pymble Pride|
