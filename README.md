@@ -24,7 +24,7 @@ git for-each-ref --exclude="refs/remotes/origin/HEAD" --exclude="refs/heads" --e
 ## Control Hubs & Driver Stations
 Connect to the Control Hub WiFi on the Laptop and Driver Station.
 ### On the laptop:
-> (Use REV Hardware Client 2 if available, plug into the control hub and update as prompted) OR see below
+> (Use REV Hardware Client 2 if available, plug into the control hub and update as prompted) OR see below\
 Go to 192.168.43.1:8080 > Manage tab
 Check:
 1. Control Hub OS Version = 1.1.6
@@ -34,7 +34,9 @@ If either is under version, download the respective software:\
 [Hub OS](https://github.com/REVrobotics/REV-Software-Binaries/releases/download/chos-1.1.6/controlHubOS-1.1.6.zip)\
 [Hub Firmware](https://www.revrobotics.com/content/sw/REVHubFirmware_1_08_02.bin)\
 Scroll down to "Update Control Hub Operating System" > Select Update File > Select the Downloaded File > Update\
-Scroll down to "Update Rev Hub Firmware" > Select Firmware > Select the Downloaded File > Update Using Selected Firmware File
+Scroll down to "Update Rev Hub Firmware" > Select Firmware > Select the Downloaded File > Update Using Selected Firmware File\
+
+(If the Robot Controller App is severly out of date (< Version 10), update manually via the same panel: [Controller App](https://github.com/FIRST-Tech-Challenge/FtcRobotController/releases/download/v11.0/FtcRobotController-release.apk)\
 
 ### Under the driver station, ensure:
 
