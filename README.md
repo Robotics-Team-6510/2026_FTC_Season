@@ -25,13 +25,13 @@ git for-each-ref --exclude="refs/remotes/origin/HEAD" --exclude="refs/heads" --e
 Under the driver station, ensure:
 
 ### Settings
-Pairing Method > Control Hub
-Driver Station Layout > Landscape
-Robot Controller Name > TeamNumber-RC (Team number should be found somewhere, CANNOT BE TEAM NAME ANYMORE)
-Driver Station Name > TeamNumber-DS
-Start getting teams farmiliar with their team number as well so that they remember
+- Pairing Method > Control Hub
+- Driver Station Layout > Landscape
+- Robot Controller Name > TeamNumber-RC (Team number should be found somewhere, CANNOT BE TEAM NAME ANYMORE)
+- Driver Station Name > TeamNumber-DS
+> Start getting teams familiar with their team number as well so that they remember
 
 ### Program & Manage
-Manage > Wifi Band > 5GHz
-Manage > Wifi Channel > auto (5GHz)
+- Manage > Wifi Band > 5GHz
+- Manage > Wifi Channel > auto (5GHz)
 > Then Click (Apply WiFi Settings)
