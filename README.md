@@ -21,13 +21,15 @@ git for-each-ref --exclude="refs/remotes/origin/HEAD" --exclude="refs/heads" --e
 4. If this is the first time uploading code to a Control Hub from THIS Laptop using THIS Driver Station, upload using the regular Run Configuration (Full Team Code Upload). Ensure you are connected to the robot wifi, and the ADB WiFi is connected to 192.168.43.1 in Android Studio.
 5. Once the Full Team Code Upload is done, you can use Fast Load. Fast Load automatically connectes to 192.168.43.1 via adb wifi, uploads the code, and then disconnects ensuring we do not get stuck in the adb dead state previously experienced when the laptop would disconnect from the robot while adb was connected.
 
-## Control Hubs
+## Control Hubs & Driver Stations
 Under the driver station, ensure:
 
 ### Settings
 Pairing Method > Control Hub
 Driver Station Layout > Landscape
 Robot Controller Name > TeamNumber-RC (Team number should be found somewhere, CANNOT BE TEAM NAME ANYMORE)
+Driver Station Name > TeamNumber-DS
+Start getting teams farmiliar with their team number as well so that they remember
 
 ### Program & Manage
 Manage > Wifi Band > 5GHz
