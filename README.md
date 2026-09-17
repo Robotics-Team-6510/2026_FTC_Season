@@ -22,16 +22,30 @@ git for-each-ref --exclude="refs/remotes/origin/HEAD" --exclude="refs/heads" --e
 5. Once the Full Team Code Upload is done, you can use Fast Load. Fast Load automatically connectes to 192.168.43.1 via adb wifi, uploads the code, and then disconnects ensuring we do not get stuck in the adb dead state previously experienced when the laptop would disconnect from the robot while adb was connected.
 
 ## Control Hubs & Driver Stations
-Under the driver station, ensure:
+Connect to the Control Hub WiFi on the Laptop and Driver Station.
+### On the laptop:
+> (Use REV Hardware Client 2 if available, plug into the control hub and update as prompted) OR see below
+Go to 192.168.43.1:8080 > Manage tab
+Check:
+1. Control Hub OS Version = 1.1.6
+2. Control Hub Firmware Version = 1.8.2
 
-### Settings
+If either is under version, download the respective software:\
+[Hub OS](https://github.com/REVrobotics/REV-Software-Binaries/releases/download/chos-1.1.6/controlHubOS-1.1.6.zip)\
+[Hub Firmware](https://www.revrobotics.com/content/sw/REVHubFirmware_1_08_02.bin)\
+Scroll down to "Update Control Hub Operating System" > Select Update File > Select the Downloaded File > Update\
+Scroll down to "Update Rev Hub Firmware" > Select Firmware > Select the Downloaded File > Update Using Selected Firmware File
+
+### Under the driver station, ensure:
+
+#### Settings
 - Pairing Method > Control Hub
 - Driver Station Layout > Landscape
 - Robot Controller Name > TeamNumber-RC (Team number should be found somewhere, CANNOT BE TEAM NAME ANYMORE)
 - Driver Station Name > TeamNumber-DS
 > Start getting teams familiar with their team number as well so that they remember. See below for Team Numbers.
 
-### Program & Manage
+#### Program & Manage
 - Manage > Wifi Band > 5GHz
 - Manage > Wifi Channel > auto (5GHz)
 > Then Click (Apply WiFi Settings)
