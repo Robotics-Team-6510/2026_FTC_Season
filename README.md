@@ -25,6 +25,7 @@ git for-each-ref --exclude="refs/remotes/origin/HEAD" --exclude="refs/heads" --e
 Connect to the Control Hub WiFi on the Laptop and Driver Station.
 ### On the laptop:
 > (Use REV Hardware Client 2 if available, plug into the control hub and update as prompted) OR see below\
+
 Go to 192.168.43.1:8080 > Manage tab
 Check:
 1. Control Hub OS Version = 1.1.6
