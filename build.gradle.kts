@@ -1,6 +1,6 @@
 plugins {
-	id("dev.frozenmilk.teamcode") version "11.1.0-1.1.2"
-	id("dev.frozenmilk.sinister.sloth.load") version "0.2.4"
+	id("dev.frozenmilk.teamcode") version "12.0.0-1.2.2"
+	id("dev.frozenmilk.sinister.sloth.load") version "0.3.2"
 }
 
 ftc {

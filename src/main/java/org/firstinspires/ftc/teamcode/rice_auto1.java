@@ -3,10 +3,9 @@ package org.firstinspires.ftc.teamcode;
 
 // Prewritten Code that is imported so we don't have to write EVERYTHING from scratch.
 // Delete what you don't need.
-
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
@@ -14,7 +13,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 // Do NOT give it a name "name = "something"", leave the name blank, and it will use the filename
 // Code with the same group name will be grouped together in the driver station
 @Autonomous
-public class Rice_Auto extends LinearOpMode {
+public class rice_auto1 extends LinearOpMode {
     // Declare OpMode members, put motors, devices, etc all here. i.e: private DcMotor LeftFront;
     // 1
     DcMotor lf_motor, lb_motor, rf_motor, rb_motor;
@@ -58,6 +57,7 @@ public class Rice_Auto extends LinearOpMode {
     int square(int bob, double jeff){
         return bob*bob+1;
     }
+
 
     void forward(int distance, double power){
         lf_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -105,7 +105,7 @@ public class Rice_Auto extends LinearOpMode {
         rf_motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         rb_motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        while (lf_motor.isBusy()) { }
 
-    }
+
+        }
     }
