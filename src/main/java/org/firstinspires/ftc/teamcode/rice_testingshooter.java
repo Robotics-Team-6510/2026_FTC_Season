@@ -16,12 +16,14 @@ public class rice_testingshooter extends OpMode {
     @Override
     public void init() {
 
+        shooter = hardwareMap.get(DcMotor.class, "shooter");
+        shooter.setDirection(DcMotorSimple.Direction.REVERSE);
     }
 
     @Override
     public void loop() {
         if (gamepad1.a) {
-            shooter.setPower(0.4);
+            shooter.setPower(0.38);
         }
         else {
             shooter.setPower(0);

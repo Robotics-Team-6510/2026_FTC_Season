@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.IMU;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
@@ -17,6 +18,11 @@ public class RICE_FC extends OpMode {
     DcMotor intake;
     double drive_power;
     double best;
+    DcMotor shooter;
+    public class servo {
+        Servo extension;
+    }
+
 
     @Override
     public void init(){
@@ -24,6 +30,8 @@ public class RICE_FC extends OpMode {
         lb_motor = hardwareMap.get(DcMotor.class, "lb_motor");
         rf_motor = hardwareMap.get(DcMotor.class, "rf_motor");
         rb_motor = hardwareMap.get(DcMotor.class, "rb_motor");
+
+        Servo extension = hardwareMap.get(Servo.class, "extension");
 
         rb_motor.setDirection(DcMotorSimple.Direction.REVERSE);
         rf_motor.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -42,7 +50,7 @@ public class RICE_FC extends OpMode {
         ////////////////////////////////////////////////////////
         intake = hardwareMap.get(DcMotor.class, "intake");
 
-        intake.setDirection(DcMotorSimple.Direction.REVERSE);
+        shooter = hardwareMap.get(DcMotor.class, "motor");
 
 
     }
@@ -63,8 +71,19 @@ public class RICE_FC extends OpMode {
         rf_motor.setPower(drive_power*(rotForward - turn - rotStrafe));
         rb_motor.setPower(drive_power*(rotForward - turn + rotStrafe));
 
-        double current = gamepad2.right_trigger;
-
+//        double current = gamepad2.right_trigger;
+/////////////shooter////////
+        if (gamepad2.y) {
+            shooter.setPower(0.38);
+        }
+        else {
+            shooter.setPower(0);
+        }
+        ///////////servo extension//////
+        if (gamepad2.dpad_up) {
+            servo.setServoPos(0);
+        }
+///////drive faster/////////////
         if (gamepad1.right_bumper) {
             drive_power = 0.8;
         } else {
@@ -73,15 +92,23 @@ public class RICE_FC extends OpMode {
         if (gamepad1.start) {
             imu.resetYaw();
         }
-
-        if (gamepad2.x) {
-            intake.setPower(0.8);
+///////////intake///////////
+        if (gamepad2.right_bumper) {
+            intake.setPower(1);
         }
         else {
             intake.setPower(0);
         }
+        ////////////outtake//////
 
-        if (current > best) {
+        if (gamepad2.left_bumper) {
+            intake.setPower(-1);
+        }
+        else {
+            intake.setPower(0);
+        }
+//////////////////////////////////outtake extra code///////
+        /*if (current > best) {
             best = current;
         }
 
@@ -108,11 +135,10 @@ public class RICE_FC extends OpMode {
         }
         if (gamepad2.dpadDownWasPressed()){
             best -=0.1;
-        }
+        }*/
 
 
-
-
+/////////////////telemetry code//////////
         telemetry.addData("imu", robot_heading);
         telemetry.update();
 
