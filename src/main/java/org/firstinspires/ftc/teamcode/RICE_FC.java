@@ -80,6 +80,8 @@ intake.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         ///////////servo extension//////
         if (gamepad2.dpad_up) {
             extension.setPosition(1);
+        } else if (gamepad2.dpad_down) {
+            extension.setPosition(0);
         }
 ///////drive faster/////////////
         if (gamepad1.right_bumper) {
