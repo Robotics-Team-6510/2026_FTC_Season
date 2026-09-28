@@ -19,9 +19,7 @@ public class RICE_FC extends OpMode {
     double drive_power;
     double best;
     DcMotor shooter;
-    public class servo {
-        Servo extension;
-    }
+    Servo extension;
 
 
     @Override
@@ -31,7 +29,7 @@ public class RICE_FC extends OpMode {
         rf_motor = hardwareMap.get(DcMotor.class, "rf_motor");
         rb_motor = hardwareMap.get(DcMotor.class, "rb_motor");
 
-        Servo extension = hardwareMap.get(Servo.class, "extension");
+        extension = hardwareMap.get(Servo.class, "extension");
 
         rb_motor.setDirection(DcMotorSimple.Direction.REVERSE);
         rf_motor.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -51,7 +49,7 @@ public class RICE_FC extends OpMode {
         intake = hardwareMap.get(DcMotor.class, "intake");
 
         shooter = hardwareMap.get(DcMotor.class, "motor");
-
+intake.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
     }
     @Override
@@ -81,7 +79,7 @@ public class RICE_FC extends OpMode {
         }
         ///////////servo extension//////
         if (gamepad2.dpad_up) {
-            servo.setServoPos(0);
+            extension.setPosition(1);
         }
 ///////drive faster/////////////
         if (gamepad1.right_bumper) {
@@ -140,9 +138,12 @@ public class RICE_FC extends OpMode {
 
 /////////////////telemetry code//////////
         telemetry.addData("imu", robot_heading);
-        telemetry.update();
+       // telemetry.update();
 
         telemetry.addData("intake", intake.getPower());
+//        telemetry.update();
+
+        telemetry.addData("extension_angle", extension.getPosition());
         telemetry.update();
 
     }
