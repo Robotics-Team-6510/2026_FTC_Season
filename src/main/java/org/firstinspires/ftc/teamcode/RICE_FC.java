@@ -20,6 +20,7 @@ public class RICE_FC extends OpMode {
     double best;
     DcMotor shooter;
     Servo extension;
+    DcMotor feeder;
 
 
     @Override
@@ -28,6 +29,8 @@ public class RICE_FC extends OpMode {
         lb_motor = hardwareMap.get(DcMotor.class, "lb_motor");
         rf_motor = hardwareMap.get(DcMotor.class, "rf_motor");
         rb_motor = hardwareMap.get(DcMotor.class, "rb_motor");
+
+        feeder = hardwareMap.get(DcMotor.class, "feeder");
 
         extension = hardwareMap.get(Servo.class, "extension");
 
@@ -82,6 +85,7 @@ intake.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
             extension.setPosition(1);
         } else if (gamepad2.dpad_down) {
             extension.setPosition(0);
+
         }
 ///////drive faster/////////////
         if (gamepad1.right_bumper) {
@@ -107,6 +111,14 @@ intake.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         else {
             intake.setPower(0);
         }
+        ////////////////////////feeder code///////
+        if (gamepad2.x) {
+            feeder.setPower(1);
+        }
+        else {
+            feeder.setPower(0);
+        }
+
 //////////////////////////////////outtake extra code///////
         /*if (current > best) {
             best = current;
