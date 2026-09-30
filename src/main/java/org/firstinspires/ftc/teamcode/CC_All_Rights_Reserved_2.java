@@ -12,8 +12,8 @@ import com.qualcomm.robotcore.hardware.IMU;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
-@TeleOp(name = "cc all rights reserved one gamepad")
-public class CC_All_Rights_Reserved extends OpMode {
+@TeleOp(name = "cc all rights reserved driver and operator")
+public class CC_All_Rights_Reserved_2 extends OpMode {
     // 1 - variables
 
     DcMotor FRwheel, FLwheel, BRwheel, BLwheel, SFintake, Intake, Pollenshooter, Nectarshooter;
@@ -83,21 +83,21 @@ public class CC_All_Rights_Reserved extends OpMode {
 //            Intake.setPower(0);
 //        }
 
-        if (gamepad1.a){
+        if (gamepad2.a){
             Intake.setPower(1);
         } else {
             Intake.setPower(0);
         }
 
-        if (gamepad1.y) {
+        if (gamepad2.left_bumper) {
             Pollenshooter.setPower(1);
-        } else if (gamepad1.x){
+        } else if (gamepad2.left_trigger>0.3){
             Pollenshooter.setPower(0);
         }
 
-        if (gamepad1.dpad_up) {
+        if (gamepad2.right_bumper) {
             Nectarshooter.setPower(1);
-        } else if (gamepad1.dpad_down) {
+        } else if (gamepad2.right_trigger>0.3){
             Nectarshooter.setPower(0);
         }
 
