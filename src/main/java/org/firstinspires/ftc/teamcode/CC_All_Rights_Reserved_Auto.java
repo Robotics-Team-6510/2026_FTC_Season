@@ -52,13 +52,40 @@ public class CC_All_Rights_Reserved_Auto extends LinearOpMode {
 
         waitForStart();
         // actual code
+
+        //shoot first 4 pollen
         Pollenshooter.setPower(1);
-        sleep(200);
+        sleep(100);
+        Intake.setPower(1);
+        sleep(300);
         Pollenshooter.setPower(0);
-        turn(0.8, 3);
+
+        //collect more pollen from garden
+        turn(0.8, -1000);
         Intake.setPower(1);
         SFintake.setPower(1);
-        Forward();
+        forwards(0.8, 4);
+
+        //shoot collected pollen
+        SFintake.setPower(0);
+        forwards(0.8, -4);
+        turn(0.8,-1000);
+        forwards(0.8, -10);
+        Intake.setPower(0);
+        Pollenshooter.setPower(1);
+        Nectarshooter.setPower(1);
+        sleep(100);
+        Intake.setPower(1);
+        sleep(300);
+        Pollenshooter.setPower(0);
+        Nectarshooter.setPower(0);
+
+        //park
+        Intake.setPower(0);
+        turn(0.8, 1000);
+        forwards(0.8, 4);
+        turn(0.8, -1000);
+        forwards(0.8, 1);
 
     }
 

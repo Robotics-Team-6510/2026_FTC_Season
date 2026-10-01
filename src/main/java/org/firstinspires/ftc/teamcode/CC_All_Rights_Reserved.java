@@ -85,8 +85,10 @@ public class CC_All_Rights_Reserved extends OpMode {
 
         if (gamepad1.a){
             Intake.setPower(1);
+        } else if (gamepad1.x){
+            Intake.setPower(-1);
         } else {
-            Intake.setPower(0);
+            Intake.setPower(1);
         }
 
         if (gamepad1.y) {
