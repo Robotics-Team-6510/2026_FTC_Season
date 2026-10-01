@@ -87,8 +87,11 @@ public class Baked_not_fried_Teleop extends OpMode {
         }
 
         if (gamepad1.y) {
-            FS.setPower(1);
+            FS.setPower(-1);
             SS.setPower(1);
+        } else {
+            FS.setPower(1);
+            SS.setPower(-1);
         }
 
         if (gamepad1.options) {
