@@ -21,6 +21,7 @@ public class RICE_FC extends OpMode {
     DcMotor shooter;
     Servo extension;
     DcMotor feeder;
+    
 
 
     @Override
@@ -74,7 +75,7 @@ intake.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
 //        double current = gamepad2.right_trigger;
 /////////////shooter////////
-        if (gamepad2.y) {
+        if (gamepad2.x) {
             shooter.setPower(0.38);
         }
         else {
