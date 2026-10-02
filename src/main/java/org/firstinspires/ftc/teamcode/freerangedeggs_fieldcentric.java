@@ -19,12 +19,14 @@ public class freerangedeggs_fieldcentric extends OpMode {
     private DcMotor backRight;
     private DcMotor backLeft;
 
-    CRServo servo1, tom;
-
     private IMU imu;
 
     private DcMotor intake;
+    private DcMotor sam;
 
+    private DcMotor tom;
+    private DcMotor frontShooter;
+    private DcMotor backShooter;
 
 
     // Retrieve the IMU from the hardware map
@@ -39,10 +41,10 @@ public class freerangedeggs_fieldcentric extends OpMode {
         backRight = hardwareMap.get(DcMotor.class, "backRight");
         backLeft = hardwareMap.get(DcMotor.class, "backLeft");
         intake = hardwareMap.get(DcMotor.class, "intake");
-
-
-        tom = hardwareMap.get(CRServo.class, "sr");
-        servo1 = hardwareMap.get(CRServo.class, "l");
+        tom = hardwareMap.get(DcMotor.class, "tom");
+        sam = hardwareMap.get(DcMotor.class, "sam");
+        frontShooter = hardwareMap.get(DcMotor.class, "frontShooter");
+        backShooter = hardwareMap.get(DcMotor.class, "backShooter");
 
         // One side of motors will always need to be reversed so that they all spin in the same direction.
         frontRight.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -106,13 +108,28 @@ public class freerangedeggs_fieldcentric extends OpMode {
         if (gamepad1.left_bumper) {
             intake.setPower(1);
             tom.setPower(1);
-            servo1.setPower(1);
         } else if (gamepad1.left_trigger > 0) {
             intake.setPower(-0.45);
+            tom.setPower(-0.45);
         } else {
             intake.setPower(0);
             tom.setPower(0);
-            servo1.setPower(0);
+        }
+
+        if (gamepad1.right_bumper) {
+            sam.setPower(1);
+        } else if (gamepad1.right_trigger > 0) {
+            sam.setPower(-0.45);
+        } else {
+            sam.setPower(0);
+        }
+
+        if (gamepad1.y) {
+            backShooter.setPower(-1);
+            frontShooter.setPower(1);
+        } else {
+            backShooter.setPower(0);
+            frontShooter.setPower(0);
         }
 
 
