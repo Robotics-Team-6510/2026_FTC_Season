@@ -18,9 +18,9 @@ public class NEW_BuiltDifferent_Teleop extends OpMode
     private DcMotor FLMotor;
     private DcMotor BRMotor;
     private DcMotor BLMotor;
-
+    private DcMotor frontshooter;
+    private DcMotor backshooter;
     private DcMotor Fintake;
-
     private double power = 2;
 
     private IMU imu;
@@ -35,6 +35,9 @@ public class NEW_BuiltDifferent_Teleop extends OpMode
         BRMotor = hardwareMap.get(DcMotor.class, "br");
         BLMotor = hardwareMap.get(DcMotor.class, "bl");
         Fintake = hardwareMap.get(DcMotor.class, "fin");
+        frontshooter = hardwareMap.get(DcMotor.class, "fs");
+        backshooter = hardwareMap.get (DcMotor.class, "bs");
+
 
         // One side of motors will always need to be reversed so that they all spin in the same direction.
         FRMotor.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -91,19 +94,31 @@ public class NEW_BuiltDifferent_Teleop extends OpMode
         if (gamepad1.left_bumper){
             Fintake.setPower(1);
         } else if (gamepad1.right_bumper){
-            Fintake.setPower(-power);
+            Fintake.setPower(-1);
         }
         else {
             Fintake.setPower(0);
         }
 
-
         if(gamepad1.dpadUpWasPressed()){
             power += 0.1;
         }
-
         if(gamepad1.dpadDownWasPressed()){
             power -= 0.1;
+        }
+
+        if (gamepad1.left_bumper){
+            Fintake.setPower(1);
+        } else {
+            Fintake.setPower(0);
+        }
+
+        if (gamepad1.y){
+            frontshooter.setPower(1);
+            backshooter.setPower(-1);
+        } else {
+            frontshooter.setPower(0);
+            backshooter.setPower(0);
         }
 
 
