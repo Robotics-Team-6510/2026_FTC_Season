@@ -22,12 +22,12 @@ public class freerangedeggs_fieldcentric extends OpMode {
     private IMU imu;
 
     private DcMotor intake;
-    private DcMotor sam;
 
     private DcMotor tom;
     private DcMotor frontShooter;
     private DcMotor backShooter;
 
+    private CRServo gilbert;
 
     // Retrieve the IMU from the hardware map
 
@@ -42,15 +42,18 @@ public class freerangedeggs_fieldcentric extends OpMode {
         backLeft = hardwareMap.get(DcMotor.class, "backLeft");
         intake = hardwareMap.get(DcMotor.class, "intake");
         tom = hardwareMap.get(DcMotor.class, "tom");
-        sam = hardwareMap.get(DcMotor.class, "sam");
-        frontShooter = hardwareMap.get(DcMotor.class, "frontShooter");
-        backShooter = hardwareMap.get(DcMotor.class, "backShooter");
+        frontShooter = hardwareMap.get(DcMotor.class, "frontshooter");
+        backShooter = hardwareMap.get(DcMotor.class, "backshooter");
+        gilbert  = hardwareMap.get(CRServo.class, "gilbert");
 
         // One side of motors will always need to be reversed so that they all spin in the same direction.
         frontRight.setDirection(DcMotorSimple.Direction.REVERSE);
         frontLeft.setDirection(DcMotorSimple.Direction.FORWARD);
         backRight.setDirection(DcMotorSimple.Direction.REVERSE);
         backLeft.setDirection(DcMotorSimple.Direction.FORWARD);
+        backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+        tom.setDirection(DcMotorSimple.Direction.REVERSE);
+
 
         // It is good practise to set the mode to ensure consistency
         frontRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -106,26 +109,26 @@ public class freerangedeggs_fieldcentric extends OpMode {
         backLeft.setPower(BLPower);
 
         if (gamepad1.left_bumper) {
-            intake.setPower(1);
-            tom.setPower(1);
+            intake.setPower(0.45);
+            tom.setPower(0.45);
         } else if (gamepad1.left_trigger > 0) {
-            intake.setPower(-0.45);
-            tom.setPower(-0.45);
+            intake.setPower(-0.40);
+            tom.setPower(-0.40);
         } else {
             intake.setPower(0);
             tom.setPower(0);
         }
 
         if (gamepad1.right_bumper) {
-            sam.setPower(1);
+            gilbert.setPower(1);
         } else if (gamepad1.right_trigger > 0) {
-            sam.setPower(-0.45);
+            gilbert.setPower(-1);
         } else {
-            sam.setPower(0);
+            gilbert.setPower(0);
         }
 
         if (gamepad1.y) {
-            backShooter.setPower(-1);
+            backShooter.setPower(1);
             frontShooter.setPower(1);
         } else {
             backShooter.setPower(0);
