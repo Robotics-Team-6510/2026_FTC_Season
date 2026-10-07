@@ -6,9 +6,11 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.IMU;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
@@ -16,8 +18,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 public class CC_All_Rights_Reserved extends OpMode {
     // 1 - variables
 
-    DcMotor FRwheel, FLwheel, BRwheel, BLwheel, SFintake, Intake, Pollenshooter, Nectarshooter;
-
+    DcMotor FRwheel, FLwheel, BRwheel, BLwheel, Intake, Pollenshooter, Nectarshooter;
+    CRServo SFintake, MPOutake;
     IMU imu_called_bob;
     double drivePower;
 
@@ -31,10 +33,11 @@ public class CC_All_Rights_Reserved extends OpMode {
         BLwheel = hardwareMap.get(DcMotor.class, "blw");
 
         Intake = hardwareMap.get(DcMotor.class, "i");
-        SFintake = hardwareMap.get(DcMotor.class, "SFi");
         Pollenshooter = hardwareMap.get(DcMotor.class, "Ps");
-        Nectarshooter = hardwareMap.get(DcMotor.class, "Ns");
+       // Nectarshooter = hardwareMap.get(DcMotor.class, "Ns");
 
+        SFintake = hardwareMap.get(CRServo.class, "SFi");
+        MPOutake = hardwareMap.get(CRServo.class, "MPO");
 
         imu_called_bob = hardwareMap.get(IMU.class, "imu");
 
@@ -48,6 +51,8 @@ public class CC_All_Rights_Reserved extends OpMode {
         FRwheel.setDirection(DcMotorSimple.Direction.REVERSE);
         BRwheel.setDirection(DcMotorSimple.Direction.REVERSE);
         Intake.setDirection(DcMotorSimple.Direction.REVERSE);
+        Pollenshooter.setDirection(DcMotorSimple.Direction.REVERSE);
+        MPOutake.setDirection(DcMotorSimple.Direction.REVERSE);
 
     }
     @Override
@@ -88,21 +93,32 @@ public class CC_All_Rights_Reserved extends OpMode {
         } else if (gamepad1.x){
             Intake.setPower(-1);
         } else {
-            Intake.setPower(1);
+            Intake.setPower(0);
         }
 
-        if (gamepad1.y) {
-            Pollenshooter.setPower(1);
-        } else if (gamepad1.x){
+//        if (gamepad1.y) {
+//            Nectarshooter.setPower(1);
+//        } else if (gamepad1.x){
+//            Nectarshooter.setPower(0);
+//        }
+
+        if (gamepad1.dpad_up) {
+            Pollenshooter.setPower(0.65);
+        } else if (gamepad1.dpad_down) {
             Pollenshooter.setPower(0);
         }
 
-        if (gamepad1.dpad_up) {
-            Nectarshooter.setPower(1);
-        } else if (gamepad1.dpad_down) {
-            Nectarshooter.setPower(0);
+        if (gamepad1.left_bumper) {
+            MPOutake.setPower(1);
+        } else {
+            MPOutake.setPower(0);
         }
 
+        if (gamepad1.y) {
+            SFintake.setPower(1);
+        } else {
+            SFintake.setPower(0);
+        }
 
 
 
