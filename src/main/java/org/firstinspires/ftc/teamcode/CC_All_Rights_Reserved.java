@@ -89,7 +89,7 @@ public class CC_All_Rights_Reserved extends OpMode {
 //        }
 
         if (gamepad1.a){
-            Intake.setPower(1);
+            Intake.setPower(0.4);
         } else if (gamepad1.x){
             Intake.setPower(-1);
         } else {
@@ -103,13 +103,17 @@ public class CC_All_Rights_Reserved extends OpMode {
 //        }
 
         if (gamepad1.dpad_up) {
-            Pollenshooter.setPower(0.65);
+            Pollenshooter.setPower(0.8);
+            MPOutake.setPower(1);
         } else if (gamepad1.dpad_down) {
             Pollenshooter.setPower(0);
+            MPOutake.setPower(0);
         }
 
         if (gamepad1.left_bumper) {
-            MPOutake.setPower(1);
+            MPOutake.setPower(-1);
+        // } else if (gamepad1.left_trigger > 0.3){
+        //    MPOutake.setPower(-1);
         } else {
             MPOutake.setPower(0);
         }
