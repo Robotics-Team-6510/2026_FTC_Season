@@ -13,6 +13,9 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 public class NEW_botzilla_challenge1 extends OpMode {
     // 1 - varibale definition
 
+    private DcMotor shooter1;
+    private DcMotor shooter2;
+
     int mynamebob;
 
     DcMotor FR;
@@ -25,6 +28,20 @@ public class NEW_botzilla_challenge1 extends OpMode {
 
     @Override
     public void init() {
+
+        shooter1 = hardwareMap.get(DcMotor.class, "shooter1");
+        shooter2 = hardwareMap.get(DcMotor.class, "shooter2");
+
+        shooter1.setDirection(DcMotorSimple.Direction.FORWARD);
+        shooter2.setDirection(DcMotorSimple.Direction.FORWARD);
+
+        shooter1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        shooter2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        shooter1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        shooter2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+
         // 2
         FR = hardwareMap.get(DcMotor.class, "front right");
         FL = hardwareMap.get(DcMotor.class, "front left");
@@ -49,45 +66,56 @@ public class NEW_botzilla_challenge1 extends OpMode {
 
     @Override
     public void loop() {
-        // 3
-        double y = -gamepad1.left_stick_y;
-        double x = gamepad1.left_stick_x;
-        double turning = gamepad1.right_stick_x;
 
-        if (gamepad1.b) {
-            imu.resetYaw();
-        }
+        boolean shooterButton = gamepad1.b;
 
-        if (gamepad1.left_bumper) {
-            IN.setPower(0.6);
-        } else if (gamepad1.right_bumper) {
-            IN.setPower(-0.6);
+        if (shooterButton) {
+            shooter1.setPower(1);
+            shooter2.setPower(1);
         } else {
-            IN.setPower(0);
-        }
+            shooter1.setPower(0);
+            shooter2.setPower(0);
 
-        double angle = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
+            // 3
+            double y = -gamepad1.left_stick_y;
+            double x = gamepad1.left_stick_x;
+            double turning = gamepad1.right_stick_x;
 
-        double forward = x * Math.sin(-angle) + y * Math.cos(-angle);
+            if (gamepad1.b) {
+                imu.resetYaw();
+            }
 
-        double sideways = x * Math.cos(-angle) - y * Math.sin(-angle);
+            if (gamepad1.left_bumper) {
+                IN.setPower(0.6);
+            } else if (gamepad1.right_bumper) {
+                IN.setPower(-0.6);
+            } else {
+                IN.setPower(0);
+            }
 
-        sideways = sideways * 1.1;
+            double angle = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
 
-        double denom = Math.max(Math.abs(forward) + Math.abs(sideways) + Math.abs(turning), 1);
+            double forward = x * Math.sin(-angle) + y * Math.cos(-angle);
 
-        // number
-        FR.setPower((forward - turning - sideways) / denom);
-        FL.setPower((forward + turning + sideways) / denom);
-        BR.setPower((forward - turning + sideways) / denom);
-        BL.setPower((forward + turning - sideways) / denom);
+            double sideways = x * Math.cos(-angle) - y * Math.sin(-angle);
+
+            sideways = sideways * 1.1;
+
+            double denom = Math.max(Math.abs(forward) + Math.abs(sideways) + Math.abs(turning), 1);
+
+            // number
+            FR.setPower((forward - turning - sideways) / denom);
+            FL.setPower((forward + turning + sideways) / denom);
+            BR.setPower((forward - turning + sideways) / denom);
+            BL.setPower((forward + turning - sideways) / denom);
 
 //        FR.setPower((y - turning - x));
 //        FL.setPower((y + turning + x));
 //        BR.setPower((y - turning + x));
 //        BL.setPower((y + turning - x));
 
-        telemetry.addData("caption", imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES));
-        telemetry.update();
+            telemetry.addData("caption", imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES));
+            telemetry.update();
+        }
     }
 }
