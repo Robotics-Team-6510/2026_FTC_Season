@@ -51,8 +51,11 @@ public class freerangedeggs_fieldcentric extends OpMode {
         frontLeft.setDirection(DcMotorSimple.Direction.FORWARD);
         backRight.setDirection(DcMotorSimple.Direction.REVERSE);
         backLeft.setDirection(DcMotorSimple.Direction.FORWARD);
-        backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+        intake.setDirection(DcMotorSimple.Direction.REVERSE);
+        frontShooter.setDirection(DcMotorSimple.Direction.REVERSE);
+        backShooter.setDirection(DcMotorSimple.Direction.REVERSE);
         tom.setDirection(DcMotorSimple.Direction.REVERSE);
+
 
 
         // It is good practise to set the mode to ensure consistency
@@ -129,15 +132,11 @@ public class freerangedeggs_fieldcentric extends OpMode {
 
         if (gamepad1.y) {
             backShooter.setPower(1);
-            frontShooter.setPower(1);
+            frontShooter.setPower(0.60);
         } else {
             backShooter.setPower(0);
             frontShooter.setPower(0);
         }
-
-
-
-
 
 
         telemetry.addData("heading", imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES));
