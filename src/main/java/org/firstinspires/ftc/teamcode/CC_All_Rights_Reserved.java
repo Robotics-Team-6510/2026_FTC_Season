@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -18,7 +19,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 public class CC_All_Rights_Reserved extends OpMode {
     // 1 - variables
 
-    DcMotor FRwheel, FLwheel, BRwheel, BLwheel, Intake, Pollenshooter, Nectarshooter;
+    DcMotor FRwheel, FLwheel, BRwheel, BLwheel, Intake, Nectarshooter;
+    DcMotorEx Pollenshooter;
     CRServo SFintake, MPOutake;
     IMU imu_called_bob;
     double drivePower;
@@ -33,7 +35,7 @@ public class CC_All_Rights_Reserved extends OpMode {
         BLwheel = hardwareMap.get(DcMotor.class, "blw");
 
         Intake = hardwareMap.get(DcMotor.class, "i");
-        Pollenshooter = hardwareMap.get(DcMotor.class, "Ps");
+        Pollenshooter = hardwareMap.get(DcMotorEx.class, "Ps");
        // Nectarshooter = hardwareMap.get(DcMotor.class, "Ns");
 
         SFintake = hardwareMap.get(CRServo.class, "SFi");
@@ -102,18 +104,18 @@ public class CC_All_Rights_Reserved extends OpMode {
 //            Nectarshooter.setPower(0);
 //        }
 
-        if (gamepad1.dpad_up) {
-            Pollenshooter.setPower(0.8);
-            MPOutake.setPower(1);
+        if (gamepad1.dpad_up )  {
+            Pollenshooter.setVelocity(1780);
+//            MPOutake.setPower(1);
         } else if (gamepad1.dpad_down) {
-            Pollenshooter.setPower(0);
-            MPOutake.setPower(0);
+            Pollenshooter.setVelocity(0);
+//            MPOutake.setPower(0);
         }
 
         if (gamepad1.left_bumper) {
+            MPOutake.setPower(1);
+        } else if (gamepad1.left_trigger > 0.3){
             MPOutake.setPower(-1);
-        // } else if (gamepad1.left_trigger > 0.3){
-        //    MPOutake.setPower(-1);
         } else {
             MPOutake.setPower(0);
         }
@@ -137,6 +139,7 @@ public class CC_All_Rights_Reserved extends OpMode {
         telemetry.addData("ticks",FLwheel.getCurrentPosition());
         telemetry.addData("ticks",BLwheel.getCurrentPosition());
         telemetry.addData("ticks",BRwheel.getCurrentPosition());
+        telemetry.addData("velcity", Pollenshooter.getVelocity());
         telemetry.update();
 
     }
