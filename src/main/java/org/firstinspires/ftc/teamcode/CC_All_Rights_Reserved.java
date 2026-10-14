@@ -19,9 +19,10 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 public class CC_All_Rights_Reserved extends OpMode {
     // 1 - variables
 
-    DcMotor FRwheel, FLwheel, BRwheel, BLwheel, Intake, Nectarshooter;
-    DcMotorEx Pollenshooter;
-    CRServo SFintake, MPOutake;
+    DcMotor FRwheel, FLwheel, BRwheel, BLwheel, Intake;
+    DcMotorEx Pollenshooter, Nectarshooter;
+    Servo SFintake;
+    CRServo MPOutake;
     IMU imu_called_bob;
     double drivePower;
 
@@ -35,10 +36,12 @@ public class CC_All_Rights_Reserved extends OpMode {
         BLwheel = hardwareMap.get(DcMotor.class, "blw");
 
         Intake = hardwareMap.get(DcMotor.class, "i");
-        Pollenshooter = hardwareMap.get(DcMotorEx.class, "Ps");
-       // Nectarshooter = hardwareMap.get(DcMotor.class, "Ns");
 
-        SFintake = hardwareMap.get(CRServo.class, "SFi");
+        Pollenshooter = hardwareMap.get(DcMotorEx.class, "Ps");
+       // Nectarshooter = hardwareMap.get(DcMotorEx.class, "Ns");
+
+        SFintake = hardwareMap.get(Servo.class, "SFi");
+
         MPOutake = hardwareMap.get(CRServo.class, "MPO");
 
         imu_called_bob = hardwareMap.get(IMU.class, "imu");
@@ -91,21 +94,21 @@ public class CC_All_Rights_Reserved extends OpMode {
 //        }
 
         if (gamepad1.a){
-            Intake.setPower(0.4);
+            Intake.setPower(1);
         } else if (gamepad1.x){
-            Intake.setPower(-1);
+            Intake.setPower(-0.4);
         } else {
             Intake.setPower(0);
         }
 
 //        if (gamepad1.y) {
-//            Nectarshooter.setPower(1);
+//            Nectarshooter.setVelocity(0);
 //        } else if (gamepad1.x){
-//            Nectarshooter.setPower(0);
+//            Nectarshooter.setVelocity(0);
 //        }
 
         if (gamepad1.dpad_up )  {
-            Pollenshooter.setVelocity(1780);
+            Pollenshooter.setVelocity(1660);
 //            MPOutake.setPower(1);
         } else if (gamepad1.dpad_down) {
             Pollenshooter.setVelocity(0);
@@ -121,9 +124,9 @@ public class CC_All_Rights_Reserved extends OpMode {
         }
 
         if (gamepad1.y) {
-            SFintake.setPower(1);
+            SFintake.setPosition(1);
         } else {
-            SFintake.setPower(0);
+            SFintake.setPosition(0);
         }
 
 
