@@ -11,19 +11,10 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
 @TeleOp
 public class NEW_botzilla_challenge1 extends OpMode {
-    // 1 - varibale definition
+    // 1 - variable definition
 
-    private DcMotor shooter1;
-    private DcMotor shooter2;
-
-    int mynamebob;
-
-    DcMotor FR;
-    DcMotor FL;
-    DcMotor BR;
-    DcMotor BL;
-    DcMotor IN;
-
+    private DcMotor shooter1, shooter2;
+    DcMotor FR, FL, BR, BL, IN;
     IMU imu;
 
     @Override
@@ -40,7 +31,6 @@ public class NEW_botzilla_challenge1 extends OpMode {
 
         shooter1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         shooter2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
 
         // 2
         FR = hardwareMap.get(DcMotor.class, "front right");
@@ -63,13 +53,12 @@ public class NEW_botzilla_challenge1 extends OpMode {
 
     }
 
-
     @Override
     public void loop() {
 
         if (gamepad1.right_trigger > 0.1) {
             shooter1.setPower(1);
-            shooter2.setPower(0.67);
+            shooter2.setPower(1);
         } else {
             shooter1.setPower(0);
             shooter2.setPower(0);
