@@ -13,7 +13,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 @TeleOp
 public class Sausage_Dog_Telemetry extends OpMode {
     // section 1 - declaring variables - making variables
-    private DcMotor FrontRight, FrontLeft, BackLeft, BackRight, FirstFeeder, SecondFeeder;
+    private DcMotor FrontRight, FrontLeft, BackLeft, BackRight, FirstFeeder, LeftShooter, RightShooter, Intake;
     private IMU imu;
 
     double speed = 0.85;
