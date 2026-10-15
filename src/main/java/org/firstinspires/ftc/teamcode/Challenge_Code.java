@@ -46,17 +46,17 @@ public class Challenge_Code extends OpMode {
         double strafe = gamepad1.left_stick_x;
 
         if (gamepad1.left_bumper) {
-            FirstFeeder.setPower(0.5);
+            FirstFeeder.setPower(1);
         } else if (gamepad1.right_bumper) {
-            FirstFeeder.setPower(-0.5);
+            FirstFeeder.setPower(-1);
         } else {
             FirstFeeder.setPower(0);
         }
 
         if (gamepad1.a) {
-            SecondFeeder.setPower(0.35);
+            SecondFeeder.setPower(1);
         } else if (gamepad1.b) {
-            SecondFeeder.setPower(-0.35);
+            SecondFeeder.setPower(-1);
         } else {
             SecondFeeder.setPower(0);
         }
