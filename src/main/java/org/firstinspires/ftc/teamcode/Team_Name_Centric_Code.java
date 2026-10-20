@@ -13,10 +13,11 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 @TeleOp(group="Other Samples")
 public class Team_Name_Centric_Code extends OpMode {
     // Declare Motors, Variables, and Functions
-    private DcMotor FRMotor;
-    private DcMotor FLMotor;
-    private DcMotor BRMotor;
-    private DcMotor BLMotor;
+    private DcMotor fr;
+    private DcMotor fl;
+    private DcMotor br;
+    private DcMotor bl;
+    private DcMotor CRServo;
     private IMU imu;
     private DcMotor I1Motor;
 
@@ -30,11 +31,12 @@ public class Team_Name_Centric_Code extends OpMode {
     @Override
     public void init() {
         // Hardware mapping tells the program what Variables corresponds to what motor in your Robot Configuration
-        FRMotor = hardwareMap.get(DcMotor.class, "fr");
-        FLMotor = hardwareMap.get(DcMotor.class, "fl");
-        BRMotor = hardwareMap.get(DcMotor.class, "br");
-        BLMotor = hardwareMap.get(DcMotor.class, "bl");
-        I1Motor = hardwareMap.get(DcMotor.class, "i1");
+        fri7 = hardwareMap.get(DcMotor.class, "fr");
+        fl = hardwareMap.get(DcMotor.class, "fl");
+        br = hardwareMap.get(DcMotor.class, "br");
+        bl = hardwareMap.get(DcMotor.class, "bl");
+        i1 = hardwareMap.get(DcMotor.class, "i1");
+        CRServo = hardwareMap.get(DcMotor.class, "ls");
 
 
         imu = hardwareMap.get(IMU.class, "imu");
@@ -90,10 +92,10 @@ public class Team_Name_Centric_Code extends OpMode {
         double BLPower = (ForwardBackwards + Turn - LeftRight) * SpeedScaler;
 
         // Set the power of the motors
-        FRMotor.setPower(FRPower);
-        FLMotor.setPower(FLPower);
-        BRMotor.setPower(BRPower);
-        BLMotor.setPower(BLPower);
+        fr.setPower(FRPower);
+        fl.setPower(FLPower);
+        br.setPower(BRPower);
+        bl.setPower(BLPower);
 
         telemetry.addData("what is 9 + 10?", 21);
         telemetry.addData("YAWWWWW", imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES));
@@ -107,6 +109,11 @@ public class Team_Name_Centric_Code extends OpMode {
         else {
             I1Motor.setPower(0);
 
+        if (gamepad1.x) {
+            CRServo.setPower(-1);
+        } else if (gamepad1.x);
+            CRServo.setPower(1)
+        }
 
         }
     }
