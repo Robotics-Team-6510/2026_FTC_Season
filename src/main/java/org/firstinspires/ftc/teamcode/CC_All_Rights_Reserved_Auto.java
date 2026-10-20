@@ -18,7 +18,8 @@ public class CC_All_Rights_Reserved_Auto extends LinearOpMode {
     // declare variables
 
     DcMotor FRwheel, FLwheel, BRwheel, BLwheel, Intake;
-    DcMotorEx Pollenshooter, Nectarshooter;
+    DcMotorEx Pollenshooter;
+    //Nectarshooter;
     Servo SFintake;
     CRServo MPOutake;
     IMU imu_called_bob;
@@ -35,8 +36,8 @@ public class CC_All_Rights_Reserved_Auto extends LinearOpMode {
         BLwheel = hardwareMap.get(DcMotor.class, "blw");
         Intake = hardwareMap.get(DcMotor.class, "i");
         SFintake = hardwareMap.get(Servo.class, "SFi");
-        //Pollenshooter = hardwareMap.get(DcMotorEx.class, "Ps");
-        Nectarshooter = hardwareMap.get(DcMotorEx.class, "Ns");
+        Pollenshooter = hardwareMap.get(DcMotorEx.class, "Ps");
+        //Nectarshooter = hardwareMap.get(DcMotorEx.class, "Ns");
         imu_called_bob = hardwareMap.get(IMU.class, "imu");
 
         IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
@@ -53,33 +54,38 @@ public class CC_All_Rights_Reserved_Auto extends LinearOpMode {
         // actual code
 
         //shoot first 4 pollen
-        Pollenshooter.setVelocity(1670);
-        sleep(100);
+        Pollenshooter.setVelocity(-1645);
+        sleep(1000);
+        Intake.setPower(0.8);
+        sleep(1500);
         Intake.setPower(1);
-        sleep(300);
+        sleep(2500);
         Pollenshooter.setPower(0);
 
         //collect more pollen from garden
-        turn(0.8, -1000);
-        forwards(0.8, 4);
+        Intake.setPower(0.6);
+        turn(0.4, -1400);
+        forwards(0.6, 4);
+        sleep( 100);
 
-        //shoot collected pollen
-        forwards(0.8, -4);
-        turn(0.8,-1000);
-        forwards(0.8, -10);
+       //shoot collected pollen
+        forwards(0.6, -6);
+        turn(0.4,-1000);
+        forwards(0.6, -10);
+        turn(0.4, 0);
         Intake.setPower(0);
-        Pollenshooter.setPower(1670);
-        sleep(100);
+        Pollenshooter.setPower(-1660);
+        sleep(1000);
         Intake.setPower(1);
-        sleep(300);
+        sleep(3000);
         Pollenshooter.setPower(0);
 
         //park
         Intake.setPower(0);
-        turn(0.8, 1000);
-        forwards(0.8, 4);
-        turn(0.8, -1000);
-        forwards(0.8, 1);
+        turn(0.4, 10000);
+        forwards(0.6, 4);
+        turn(0.4, -10000);
+        forwards(0.6, 1);
 
     }
 
