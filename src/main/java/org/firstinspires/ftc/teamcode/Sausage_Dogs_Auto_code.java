@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
@@ -18,8 +19,10 @@ import org.opencv.video.BackgroundSubtractorKNN;
 public class Sausage_Dogs_Auto_code extends LinearOpMode {
     // Declare OpMode members, put motors, devices, etc all here. i.e: private DcMotor LeftFront;
 
-    private DcMotor FrontRight, FrontLeft, BackLeft, BackRight, FirstFeeder, SecondFeeder;
+    private DcMotor FrontRight, FrontLeft, BackLeft, BackRight, FirstFeeder, Intake;
     private IMU imu;
+
+    private DcMotorEx LeftShooter, RightShooter;
 
     private void AllSetPower(double power) {
         FrontRight.setPower(power);
@@ -117,8 +120,25 @@ public class Sausage_Dogs_Auto_code extends LinearOpMode {
         FrontLeft = hardwareMap.get(DcMotor.class, "FLW");
         BackLeft = hardwareMap.get(DcMotor.class, "BLW");
         BackRight = hardwareMap.get(DcMotor.class, "BRW");
+        LeftShooter = hardwareMap.get(DcMotorEx.class, "LS");
+        RightShooter = hardwareMap.get(DcMotorEx.class, "RS");
         FirstFeeder = hardwareMap.get(DcMotor.class, "FF");
-        SecondFeeder = hardwareMap.get(DcMotor.class, "SF");
+        Intake = hardwareMap.get(DcMotor.class, "IN");
+
+
+        FrontLeft.setDirection(DcMotorSimple.Direction.FORWARD);
+        BackLeft.setDirection(DcMotorSimple.Direction.FORWARD);
+        FrontRight.setDirection(DcMotorSimple.Direction.REVERSE);
+        BackRight.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        LeftShooter.setDirection(DcMotorSimple.Direction.FORWARD);
+        RightShooter.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        FirstFeeder.setDirection(DcMotorSimple.Direction.FORWARD);
+
+        Intake.setDirection(DcMotorSimple.Direction.REVERSE);
+
+
 
         FrontRight.setDirection(DcMotorSimple.Direction.REVERSE);
         BackRight.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -128,22 +148,18 @@ public class Sausage_Dogs_Auto_code extends LinearOpMode {
         IMU.Parameters Para = new IMU.Parameters(Orientation);
         imu.initialize(Para);
 
-        waitForStart();
-        // Auto Sequence
-//        AllSetPower(0.5);
-//        AllRunToPosition();
-//        AllStopAndResetEncoder();
-//        AllSetTargetPosition(1024);
-//        while(AllBusy()){}
-//
-//        FirstFeeder.setPower(1);
-//        AllDrive(1000, 1);
-//        FirstFeeder.setPower(0);
-//        AllTurn(-1, 60, 0.8);
-//        AllStrafe(2000,0.6);
 
-        FirstFeeder.setPower(1);
-        FirstFeeder.setPower(0);
+
+        waitForStart();
+
+//
+        LeftShooter.setVelocity(800);
+        RightShooter.setVelocity(800);
+        sleep(5000);
+        FirstFeeder.setPower(0.8);
+        Intake.setPower(0.8);
+        sleep(4000);
+
 
 
 

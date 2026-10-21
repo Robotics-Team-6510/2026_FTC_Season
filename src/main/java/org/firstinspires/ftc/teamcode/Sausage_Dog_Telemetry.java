@@ -34,13 +34,17 @@ public class Sausage_Dog_Telemetry extends OpMode {
         Intake = hardwareMap.get(DcMotor.class, "IN");
 
 
-    FrontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
-    BackLeft.setDirection(DcMotorSimple.Direction.REVERSE);
-    FrontRight.setDirection(DcMotorSimple.Direction.FORWARD);
-    BackRight.setDirection(DcMotorSimple.Direction.FORWARD);
+    FrontLeft.setDirection(DcMotorSimple.Direction.FORWARD);
+    BackLeft.setDirection(DcMotorSimple.Direction.FORWARD);
+    FrontRight.setDirection(DcMotorSimple.Direction.REVERSE);
+    BackRight.setDirection(DcMotorSimple.Direction.REVERSE);
 
-    LeftShooter.setDirection(DcMotorSimple.Direction.REVERSE);
-    RightShooter.setDirection(DcMotorSimple.Direction.FORWARD);
+    LeftShooter.setDirection(DcMotorSimple.Direction.FORWARD);
+    RightShooter.setDirection(DcMotorSimple.Direction.REVERSE);
+
+    FirstFeeder.setDirection(DcMotorSimple.Direction.FORWARD);
+
+    Intake.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
     LeftShooter.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -73,11 +77,11 @@ public class Sausage_Dog_Telemetry extends OpMode {
             }
 
             if (gamepad1.a) {
-                LeftShooter.setVelocity(0.5);
-                RightShooter.setVelocity(0.5);
+                LeftShooter.setVelocity(800);
+                RightShooter.setVelocity(800);
             } else if (gamepad1.b) {
-                LeftShooter.setVelocity(-0.5);
-                RightShooter.setVelocity(-0.5);
+                LeftShooter.setVelocity(-800);
+                RightShooter.setVelocity(-800);
             } else {
                 LeftShooter.setVelocity(0);
                 RightShooter.setVelocity(0);
@@ -85,9 +89,22 @@ public class Sausage_Dog_Telemetry extends OpMode {
             if (gamepad1.options) {
                 imu.resetYaw();
             }
-            double forward = -gamepad1.left_stick_y;
-            double turn = gamepad1.right_stick_x;
-            double strafe = gamepad1.left_stick_x;
+
+            if (gamepad2.leftTriggerWasPressed()) {
+                speed += 0.1;
+                if (speed > 1) speed = 1;
+            } else if (gamepad2.rightTriggerWasPressed()) {
+                speed -= 0.1;
+                if (speed < 0.1) speed = 0.1;
+            } else if (gamepad2.y) {
+                speed = 0.85;
+            } else if (gamepad2.right_trigger_pressed) {
+                speed = 0.3;
+            }
+
+            double forward = -gamepad2.left_stick_y;
+            double turn = gamepad2.right_stick_x;
+            double strafe = gamepad2.left_stick_x;
 
             double angle = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
             double x = strafe * Math.cos(-angle) - forward * Math.sin(-angle);
