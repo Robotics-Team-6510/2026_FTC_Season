@@ -2,11 +2,13 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
@@ -18,6 +20,8 @@ public class Sausage_Dog_Telemetry extends OpMode {
     private DcMotor FrontRight, FrontLeft, BackLeft, BackRight, FirstFeeder, Intake;
     private IMU imu;
     private DcMotorEx LeftShooter, RightShooter;
+
+    private CRServo LeftSide, RightSide;
 
     double speed = 1;
 
@@ -32,6 +36,9 @@ public class Sausage_Dog_Telemetry extends OpMode {
         LeftShooter = hardwareMap.get(DcMotorEx.class, "LS");
         RightShooter = hardwareMap.get(DcMotorEx.class, "RS");
         Intake = hardwareMap.get(DcMotor.class, "IN");
+        LeftSide = hardwareMap.get(CRServo.class, "LSW");
+        RightSide = hardwareMap.get(CRServo.class, "RSW");
+
 
 
     FrontLeft.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -46,8 +53,13 @@ public class Sausage_Dog_Telemetry extends OpMode {
 
     Intake.setDirection(DcMotorSimple.Direction.REVERSE);
 
+    LeftSide.setDirection(DcMotorSimple.Direction.REVERSE);
+    RightSide.setDirection(DcMotorSimple.Direction.FORWARD);
 
-    LeftShooter.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+
+
+        LeftShooter.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     RightShooter.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
 
@@ -62,10 +74,14 @@ public class Sausage_Dog_Telemetry extends OpMode {
 
             if (gamepad1.left_trigger_pressed) {
                 Intake.setPower(0.8);
+                LeftSide.setPower(1);
+                RightSide.setPower(1);
             } else if (gamepad1.right_trigger_pressed) {
                 Intake.setPower(-0.8);
             } else {
                 Intake.setPower(0);
+                LeftSide.setPower(0);
+                RightSide.setPower(0);
             }
 
             if (gamepad1.left_bumper) {
@@ -85,6 +101,10 @@ public class Sausage_Dog_Telemetry extends OpMode {
             } else {
                 LeftShooter.setVelocity(0);
                 RightShooter.setVelocity(0);
+            }
+
+            if (gamepad1.x){
+
             }
             if (gamepad1.options) {
                 imu.resetYaw();
