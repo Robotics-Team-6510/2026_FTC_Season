@@ -10,6 +10,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 // @Autonomous so it shows up in the right area of the Driver Station
 // Do NOT give it a name "name = "something"", leave the name blank, and it will use the filename
@@ -19,15 +20,17 @@ import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 public class Botzilla_Auto extends LinearOpMode {
     // Declare OpMode members, put motors, devices, etc all here. i.e: private DcMotor LeftFront;
 
-    private DcMotor shooter1, shooter2;
+    private DcMotor shooter1, shooter2, intake;
     DcMotor FR, FL, BR, BL, IN;
     IMU imu;
+    ElapsedTime timer = new ElapsedTime();
 
     @Override
     public void runOpMode() {
         // Run Once Here
         shooter1 = hardwareMap.get(DcMotor.class, "shooter1");
         shooter2 = hardwareMap.get(DcMotor.class, "shooter2");
+        intake = hardwareMap.get(DcMotor.class, "intake");
 
         shooter1.setDirection(DcMotorSimple.Direction.REVERSE);
         shooter2.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -63,36 +66,71 @@ public class Botzilla_Auto extends LinearOpMode {
         BL.setDirection(DcMotorSimple.Direction.FORWARD);
 
         waitForStart();
+        timer.reset();
 
         powerDriveMotors(0.4);
-        sleep(1000);
+
+        while (timer.seconds()<0.5){}
+        botShoot(1);
+        while (timer.seconds()<1) {
+        }
+
         powerDriveMotors(0);
-        botshoot(0.5);
+//        botIntake(1);
+//        botShoot(1);
+
+        while (timer.seconds()<7){}
+        botTurnRight(0.25);
+        while (timer.seconds()<10){}
+
+        while (timer.seconds()<10){}
+//
 
         // Auto Sequence
         /*
         right turn
         straight for 2sec
+        intake
         shoot ball
         turn left
+        intake
+        shoot ball
 
         */
 
     }
 
-    public void botshoot(double bobpwr) {
-        shooter1.setPower(bobpwr);
-        shooter2.setPower(bobpwr);
+    public void botShoot(double shooterPower) {
+        shooter1.setPower(shooterPower);
+        shooter2.setPower(shooterPower);
     }
 
-    public void powerDriveMotors(double pwr) {
-        FR.setPower(pwr);
-        FL.setPower(pwr);
-        BR.setPower(pwr);
-        BL.setPower(pwr);
+    public void botIntake(double intakePower) {
+        intake.setPower(intakePower);
+    }
 
+    public void powerDriveMotors(double bobpwr) {
+        FR.setPower(bobpwr);
+        FL.setPower(bobpwr);
+        BR.setPower(bobpwr);
+        BL.setPower(bobpwr);
 
     }
 
+    public void botTurnRight (double bobpwr) {
+        FR.setPower(-bobpwr);
+        FL.setPower(bobpwr);
+        BR.setPower(-bobpwr);
+        BL.setPower(bobpwr);
+
+    }
+
+    public void botTurnLeft (double bobpwr) {
+        FR.setPower(bobpwr);
+        FL.setPower(-bobpwr);
+        BR.setPower(bobpwr);
+        BL.setPower(-bobpwr);
+
+    }
 
 }
