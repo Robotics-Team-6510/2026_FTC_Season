@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
-@TeleOp(name = "rice_fc")
+@TeleOp
 public class RICE_FC extends OpMode {
 
     DcMotor lf_motor, lb_motor, rf_motor, rb_motor;
@@ -18,6 +18,8 @@ public class RICE_FC extends OpMode {
     DcMotor intake;
     double drive_power;
     double best;
+
+    // DcMotor should become DcMotorEx. You also need an encoder cable on the shooter, and then you can use "setVelocity" commands instead of setPower
     DcMotor shooter;
     Servo extension;
     DcMotor feeder;
@@ -52,7 +54,8 @@ public class RICE_FC extends OpMode {
         ////////////////////////////////////////////////////////
         intake = hardwareMap.get(DcMotor.class, "intake");
 
-        shooter = hardwareMap.get(DcMotor.class, "motor");
+        shooter = hardwareMap.get(DcMotor.class, "shooter");
+        shooter.setDirection(DcMotorSimple.Direction.REVERSE);
 intake.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
     }
@@ -76,7 +79,7 @@ intake.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 //        double current = gamepad2.right_trigger;
 /////////////shooter////////
         if (gamepad2.x) {
-            shooter.setPower(0.38);
+            shooter.setPower(0.55);
         }
         else {
             shooter.setPower(0);
@@ -100,20 +103,16 @@ intake.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 ///////////intake///////////
         if (gamepad2.right_bumper) {
             intake.setPower(1);
-        }
-        else {
-            intake.setPower(0);
-        }
-        ////////////outtake//////
-
-        if (gamepad2.left_bumper) {
+        } ////////////outtake//////
+        else if (gamepad2.left_bumper) {
             intake.setPower(-1);
         }
         else {
             intake.setPower(0);
         }
+
         ////////////////////////feeder code///////
-        if (gamepad2.x) {
+        if (gamepad2.a) {
             feeder.setPower(1);
         }
         else {
