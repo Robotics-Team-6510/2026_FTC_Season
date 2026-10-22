@@ -71,14 +71,10 @@ public class Botzilla_Auto extends LinearOpMode {
 
         // Auto Sequence
         /*
-         riveday orwardfay orfay 1 econdsay
-         hootsay allbay
-         urntay ightray
-         riveday orfay 2 econdsay
-         urntay eftlay
-         riveday orfay 3 econdsay
-         hootsay allbay
-         etpowersay otay 0.
+        right turn
+        straight for 2sec
+        shoot ball
+        turn left
 
         */
 
