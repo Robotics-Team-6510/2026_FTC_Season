@@ -15,7 +15,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
-@TeleOp(name = "cc all rights reserved one gamepad")
+@TeleOp
 public class CC_All_Rights_Reserved extends OpMode {
     // 1 - variables
 
@@ -108,7 +108,7 @@ public class CC_All_Rights_Reserved extends OpMode {
 //        }
 
         if (gamepad1.dpad_up )  {
-            Pollenshooter.setVelocity(1660);
+            Pollenshooter.setVelocity(1655);
 //            MPOutake.setPower(1);
         } else if (gamepad1.dpad_down) {
             Pollenshooter.setVelocity(0);
@@ -128,6 +128,7 @@ public class CC_All_Rights_Reserved extends OpMode {
         } else {
             SFintake.setPosition(0);
         }
+
 
 
 

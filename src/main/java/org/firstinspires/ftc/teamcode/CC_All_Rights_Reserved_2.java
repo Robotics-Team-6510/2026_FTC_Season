@@ -6,18 +6,24 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.IMU;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
-@TeleOp(name = "cc all rights reserved driver and operator")
+@TeleOp
 public class CC_All_Rights_Reserved_2 extends OpMode {
     // 1 - variables
 
-    DcMotor FRwheel, FLwheel, BRwheel, BLwheel, SFintake, Intake, Pollenshooter, Nectarshooter;
-
+    DcMotor FRwheel, FLwheel, BRwheel, BLwheel, Intake;
+    DcMotorEx Pollenshooter;
+    //Nectarshooter
+    Servo SFintake;
+    CRServo MPOutake;
     IMU imu_called_bob;
     double drivePower;
 
@@ -30,11 +36,14 @@ public class CC_All_Rights_Reserved_2 extends OpMode {
         BRwheel = hardwareMap.get(DcMotor.class, "brw");
         BLwheel = hardwareMap.get(DcMotor.class, "blw");
 
-        Intake = hardwareMap.get(DcMotor.class, "i");
-        SFintake = hardwareMap.get(DcMotor.class, "SFi");
-        Pollenshooter = hardwareMap.get(DcMotor.class, "Ps");
-        Nectarshooter = hardwareMap.get(DcMotor.class, "Ns");
+        Intake = hardwareMap.get(DcMotorEx.class, "i");
 
+        Pollenshooter = hardwareMap.get(DcMotorEx.class, "Ps");
+        // Nectarshooter = hardwareMap.get(DcMotorEx.class, "Ns");
+
+        SFintake = hardwareMap.get(Servo.class, "SFi");
+
+        MPOutake = hardwareMap.get(CRServo.class, "MPO");
 
         imu_called_bob = hardwareMap.get(IMU.class, "imu");
 
@@ -48,6 +57,8 @@ public class CC_All_Rights_Reserved_2 extends OpMode {
         FRwheel.setDirection(DcMotorSimple.Direction.REVERSE);
         BRwheel.setDirection(DcMotorSimple.Direction.REVERSE);
         Intake.setDirection(DcMotorSimple.Direction.REVERSE);
+        Pollenshooter.setDirection(DcMotorSimple.Direction.REVERSE);
+        MPOutake.setDirection(DcMotorSimple.Direction.REVERSE);
 
     }
     @Override
@@ -69,7 +80,7 @@ public class CC_All_Rights_Reserved_2 extends OpMode {
             drivePower = 1;
         }
 
-        if (gamepad1.start){
+        if (gamepad1.start|gamepad2.start) {
             imu_called_bob.resetYaw();
         }
 
@@ -84,23 +95,47 @@ public class CC_All_Rights_Reserved_2 extends OpMode {
 //        }
 
         if (gamepad2.a){
-            Intake.setPower(1);
-        } else {
+            Intake.setPower(0.55);
+        } else if (gamepad2.y) {
+            Intake.setPower(-0.55);
+        } else if (gamepad2.x){
+            Intake.setPower(0);
+        }
+        if (gamepad2.b){
+            Intake.setPower(0.9);
+        }else if (gamepad2.a){
+            Intake.setPower(0.55);
+        }else if (gamepad2.x){
             Intake.setPower(0);
         }
 
+//        if (gamepad1.y) {
+//            Nectarshooter.setVelocity(0);
+//        } else if (gamepad1.x){
+//            Nectarshooter.setVelocity(0);
+//        }
+
+        if (gamepad2.dpad_up )  {
+            Pollenshooter.setVelocity(1655);
+//            MPOutake.setPower(1);
+        } else if (gamepad2.dpad_down) {
+            Pollenshooter.setVelocity(0);
+//            MPOutake.setPower(0);
+        }
+
         if (gamepad2.left_bumper) {
-            Pollenshooter.setPower(1);
-        } else if (gamepad2.left_trigger>0.3){
-            Pollenshooter.setPower(0);
+            MPOutake.setPower(1);
+        } else if (gamepad2.left_trigger > 0.3){
+            MPOutake.setPower(-1);
+        } else {
+            MPOutake.setPower(0);
         }
 
-        if (gamepad2.right_bumper) {
-            Nectarshooter.setPower(1);
-        } else if (gamepad2.right_trigger>0.3){
-            Nectarshooter.setPower(0);
+        if (gamepad2.y) {
+            SFintake.setPosition(1);
+        } else {
+            SFintake.setPosition(0);
         }
-
 
 
 
@@ -115,6 +150,7 @@ public class CC_All_Rights_Reserved_2 extends OpMode {
         telemetry.addData("ticks",FLwheel.getCurrentPosition());
         telemetry.addData("ticks",BLwheel.getCurrentPosition());
         telemetry.addData("ticks",BRwheel.getCurrentPosition());
+        telemetry.addData("velcity", Pollenshooter.getVelocity());
         telemetry.update();
 
     }
