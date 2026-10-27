@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 // Adapted from Basic_Robot_Centric.java
 @TeleOp(group="Other Samples")
 @Disabled
-public class Basic_Miscellaneous extends OpMode
+public class    Basic_Miscellaneous extends OpMode
 {
     // Declare Motors, Variables, and Functions
     private DcMotor FRMotor;
