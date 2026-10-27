@@ -18,6 +18,7 @@ public class Team_Name_Centric_Code extends OpMode {
     private DcMotor br;
     private DcMotor bl;
     private DcMotor CRServo;
+    private DcMotor i1;
     private IMU imu;
     private DcMotor I1Motor;
 
@@ -31,7 +32,7 @@ public class Team_Name_Centric_Code extends OpMode {
     @Override
     public void init() {
         // Hardware mapping tells the program what Variables corresponds to what motor in your Robot Configuration
-        fri7 = hardwareMap.get(DcMotor.class, "fr");
+        fr = hardwareMap.get(DcMotor.class, "fr");
         fl = hardwareMap.get(DcMotor.class, "fl");
         br = hardwareMap.get(DcMotor.class, "br");
         bl = hardwareMap.get(DcMotor.class, "bl");
@@ -49,16 +50,16 @@ public class Team_Name_Centric_Code extends OpMode {
         imu.resetYaw();
 
         // One side of motors will always need to be reversed so that they all spin in the same direction.
-        FRMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-        FLMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-        BRMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        BLMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        fr.setDirection(DcMotorSimple.Direction.FORWARD);
+        fl.setDirection(DcMotorSimple.Direction.FORWARD);
+        br.setDirection(DcMotorSimple.Direction.REVERSE);
+        bl.setDirection(DcMotorSimple.Direction.FORWARD);
 
         // It is good practise to set the mode to ensure consistency
-        FRMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        FLMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        BRMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        BLMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        fr.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        fl.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        br.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        bl.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
 
@@ -105,17 +106,17 @@ public class Team_Name_Centric_Code extends OpMode {
             I1Motor.setPower(-1);
         } else if (gamepad1.right_bumper) {
             I1Motor.setPower(1);
-        }
-        else {
+        } else {
             I1Motor.setPower(0);
+        }
 
         if (gamepad1.x) {
             CRServo.setPower(-1);
-        } else if (gamepad1.x);
-            CRServo.setPower(1)
+        } else if (gamepad1.x) {
+            CRServo.setPower(1);
         }
 
-        }
+
     }
 
 }
