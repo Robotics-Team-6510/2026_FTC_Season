@@ -24,6 +24,7 @@ public class Sausage_Dog_Telemetry extends OpMode {
     private CRServo LeftSide, RightSide;
 
     double speed = 1;
+    int V = 500;
 
     @Override
     public void init() {
@@ -92,12 +93,20 @@ public class Sausage_Dog_Telemetry extends OpMode {
                 FirstFeeder.setPower(0);
             }
 
+
+
+            if (gamepad1.dpadUpWasPressed()) {
+                V += 25;
+            } else if (gamepad1.dpadDownWasPressed()) {
+                V -= 25;
+            }
+
             if (gamepad1.a) {
-                LeftShooter.setVelocity(800);
-                RightShooter.setVelocity(800);
+                LeftShooter.setVelocity(V);
+                RightShooter.setVelocity(V);
             } else if (gamepad1.b) {
-                LeftShooter.setVelocity(-800);
-                RightShooter.setVelocity(-800);
+                LeftShooter.setVelocity(-V);
+                RightShooter.setVelocity(-V);
             } else {
                 LeftShooter.setVelocity(0);
                 RightShooter.setVelocity(0);
@@ -144,6 +153,9 @@ public class Sausage_Dog_Telemetry extends OpMode {
             telemetry.addData(" Back Right Value: ", BackRight.getCurrentPosition());
             telemetry.addData("  Back Left Value: ", BackLeft.getCurrentPosition());
             telemetry.addData(" Angle: ", imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES));
+            telemetry.addData(" Left shooter velocity ", LeftShooter.getVelocity());
+            telemetry.addData(" Right shooter velocity: ", RightShooter.getVelocity());
+            telemetry.addData(" Target velocity ", V);
             telemetry.update();
 
         }

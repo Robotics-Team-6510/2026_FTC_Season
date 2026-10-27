@@ -155,8 +155,9 @@ public class Sausage_Dogs_Auto_code extends LinearOpMode {
 //
         LeftShooter.setVelocity(800);
         RightShooter.setVelocity(800);
-        sleep(5000);
+        sleep(1000);
         FirstFeeder.setPower(0.8);
+        sleep(4000);
         Intake.setPower(0.8);
         sleep(4000);
 
