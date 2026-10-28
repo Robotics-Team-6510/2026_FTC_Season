@@ -27,6 +27,8 @@ public class CC_All_Rights_Reserved_2 extends OpMode {
     IMU imu_called_bob;
     double drivePower;
 
+    double v = 0;
+
     @Override
     public void init(){
         // 2 - link to config
@@ -59,6 +61,8 @@ public class CC_All_Rights_Reserved_2 extends OpMode {
         Intake.setDirection(DcMotorSimple.Direction.REVERSE);
         Pollenshooter.setDirection(DcMotorSimple.Direction.REVERSE);
         MPOutake.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        Pollenshooter.setVelocityPIDFCoefficients(9,0,0,15);
 
     }
     @Override
@@ -108,6 +112,11 @@ public class CC_All_Rights_Reserved_2 extends OpMode {
         }else if (gamepad2.x){
             Intake.setPower(0);
         }
+//        if (gamepad2.dpad_left){
+//            Pollenshooter.setVelocity(-1);
+//        } else if (gamepad2.dpad_right) {
+//            Pollenshooter.setVelocity(0);
+//        }
 
 //        if (gamepad1.y) {
 //            Nectarshooter.setVelocity(0);
@@ -115,11 +124,13 @@ public class CC_All_Rights_Reserved_2 extends OpMode {
 //            Nectarshooter.setVelocity(0);
 //        }
 
+        Pollenshooter.setVelocity(v);
+
         if (gamepad2.dpad_up )  {
-            Pollenshooter.setVelocity(1655);
+            v = 1000;
 //            MPOutake.setPower(1);
         } else if (gamepad2.dpad_down) {
-            Pollenshooter.setVelocity(0);
+            v = 0;
 //            MPOutake.setPower(0);
         }
 
@@ -151,25 +162,8 @@ public class CC_All_Rights_Reserved_2 extends OpMode {
         telemetry.addData("ticks",BLwheel.getCurrentPosition());
         telemetry.addData("ticks",BRwheel.getCurrentPosition());
         telemetry.addData("velcity", Pollenshooter.getVelocity());
+        telemetry.addData("target velocity", v);
         telemetry.update();
-
-    }
-
-    // @Autonomous so it shows up in the right area of the Driver Station
-    // Do NOT give it a name "name = "something"", leave the name blank, and it will use the filename
-    // Code with the same group name will be grouped together in the driver station
-    @Autonomous(group = "Group Name")
-    @Disabled //##### REMOVE THIS LINE #####
-    public static class auto_cc_all_rights_reserved extends LinearOpMode {
-        // Declare OpMode members, put motors, devices, etc all here. i.e: private DcMotor LeftFront;
-
-        @Override
-        public void runOpMode() {
-            // Run Once Here
-
-            waitForStart();
-            // Auto Sequence
-        }
 
     }
 }

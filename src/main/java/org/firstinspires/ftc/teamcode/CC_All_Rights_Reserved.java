@@ -38,7 +38,7 @@ public class CC_All_Rights_Reserved extends OpMode {
         Intake = hardwareMap.get(DcMotor.class, "i");
 
         Pollenshooter = hardwareMap.get(DcMotorEx.class, "Ps");
-       // Nectarshooter = hardwareMap.get(DcMotorEx.class, "Ns");
+        // Nectarshooter = hardwareMap.get(DcMotorEx.class, "Ns");
 
         SFintake = hardwareMap.get(Servo.class, "SFi");
 
