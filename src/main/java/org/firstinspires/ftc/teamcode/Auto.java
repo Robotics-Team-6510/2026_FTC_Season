@@ -60,6 +60,8 @@ public class Auto extends LinearOpMode {
         driveTurnRight(ticks);
 
         setMotorsPower(0);
+        outtake2.setPower(0);
+        outtake1.setPower(0);
 
 
 
