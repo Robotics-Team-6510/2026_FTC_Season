@@ -14,7 +14,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 @Autonomous(group = "Entropy")
 public class Auto extends LinearOpMode {
     // Declare OpMode members, put motors, devices, etc all here. i.e: private DcMotor LeftFront;
-    DcMotor front_left, front_right, back_right, back_left, chelsea_is_so_67;
+    DcMotor front_left, front_right, back_right, back_left, intake, outtake1, outtake2;
 
     @Override
     public void runOpMode() {
@@ -35,7 +35,9 @@ public class Auto extends LinearOpMode {
         back_left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         back_right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        chelsea_is_so_67=hardwareMap.get(DcMotor.class,"intake");
+        intake = hardwareMap.get(DcMotor.class,"intake");
+        outtake1 = hardwareMap.get(DcMotor.class,"outtake1");
+        outtake2 = hardwareMap.get(DcMotor.class,"outtake2");
 
         front_right.setDirection(DcMotorSimple.Direction.REVERSE);
         back_right.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -47,18 +49,20 @@ public class Auto extends LinearOpMode {
 
         int ticks = 1000;
 
-
+        //code start
         waitForStart();
+
+        driveForward(ticks);
+
+        outtake1.setPower(1);
+        outtake2.setPower(1);
 
         driveTurnRight(ticks);
 
-        while(back_right.isBusy() || back_left.isBusy() || front_right.isBusy() || front_left.isBusy()){
-
-        }
-
         setMotorsPower(0);
 
-        // Auto Sequence
+
+
     }
 
     public void setMotorsPower(int power){
@@ -86,7 +90,9 @@ public class Auto extends LinearOpMode {
         back_right.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         back_right.setPower(1);
 
+        while(back_right.isBusy() || back_left.isBusy() || front_right.isBusy() || front_left.isBusy()){
 
+        }
 
     }
     public void driveTurnLeft(int ticks){
@@ -105,6 +111,10 @@ public class Auto extends LinearOpMode {
         back_right.setTargetPosition(ticks);
         back_right.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         back_right.setPower(1);
+
+        while(back_right.isBusy() || back_left.isBusy() || front_right.isBusy() || front_left.isBusy()){
+
+        }
 
 
     }
@@ -126,17 +136,24 @@ public class Auto extends LinearOpMode {
         back_right.setTargetPosition(-ticks);
         back_right.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         back_right.setPower(1);
-        //chelsea is a bigback 67 skibidi no sigma rizz aura
 
+        while(back_right.isBusy() || back_left.isBusy() || front_right.isBusy() || front_left.isBusy()){
+
+        }
+
+        //chelsea est non pulchra et callidus. Chelsea est furcifer, fur, et senex.
+        //Adeline est femina canis et ingens mendax. Ego portem Adeline ad iudex.
+        //Chelsea est frustum stercoris magni. Ego ducem Chelsea ad thermas.
+        //Adeline non est arcus caelestus. CHelsea est arcus caelestus.
     }
     public void ResetEncoder(){
         front_right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         front_left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         back_left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         back_right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+
     }
-
-
 
 
 }
