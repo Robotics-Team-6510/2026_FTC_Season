@@ -25,8 +25,21 @@ public class RICE_FC extends OpMode {
     DcMotorEx shooter_2;
     Servo extension;
     DcMotor feeder;
-    
 
+    private final Controller shooterController = new Controller(c -> {
+        c.staticFeedForwardSign = Controller.StaticFeedForwardSign.TARGET;
+        c.kS = 0.12;
+        c.kV = 0.000343;
+        c.kP = 0.0023;
+        c.kD = 0;
+    });
+    private final Controller shooter2Controller = new Controller(c -> {
+        c.staticFeedForwardSign = Controller.StaticFeedForwardSign.TARGET;
+        c.kS = 0.05;
+        c.kV = 0.000382;
+        c.kP = 0.0023;
+        c.kD = 0;
+    });
 
     @Override
     public void init(){
@@ -47,8 +60,8 @@ public class RICE_FC extends OpMode {
         imu = hardwareMap.get(IMU.class, "imu");
 
         IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
-                RevHubOrientationOnRobot.LogoFacingDirection.UP,
-                RevHubOrientationOnRobot.UsbFacingDirection.RIGHT));
+                RevHubOrientationOnRobot.LogoFacingDirection.RIGHT,
+                RevHubOrientationOnRobot.UsbFacingDirection.FORWARD));
 
         imu.initialize(parameters);
 
@@ -58,11 +71,15 @@ public class RICE_FC extends OpMode {
 
         shooter = hardwareMap.get(DcMotorEx.class, "shooter");
         shooter_2 =hardwareMap.get(DcMotorEx.class, "shooter_2");
+
+        shooter.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        shooter_2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
         // shooter.setDirection(DcMotorSimple.Direction.REVERSE);
         intake.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        shooter.setVelocityPIDFCoefficients(20,0,0,15);
-        shooter_2.setVelocityPIDFCoefficients(20,0,0,15);
+//        shooter.setVelocityPIDFCoefficients(20,0,0,15);
+//        shooter_2.setVelocityPIDFCoefficients(20,0,0,15);
 
     }
     @Override
@@ -90,12 +107,12 @@ public class RICE_FC extends OpMode {
 //        double current = gamepad2.right_trigger;
 /////////////shooter////////
         if (gamepad2.x) {
-            shooter.setVelocity(1270);
-            shooter_2.setVelocity(1270);
+            shooterController.target = 1700;
+            shooter2Controller.target = 1700;
         }
         else {
-            shooter.setVelocity(0);
-            shooter_2.setVelocity(0);
+            shooterController.target = 0;
+            shooter2Controller.target = 0;
         }
         ///////////servo extension//////
         if (gamepad1.dpad_down) {
@@ -121,9 +138,11 @@ public class RICE_FC extends OpMode {
         } ////////////outtake//////
         else if (gamepad2.left_bumper) {
             intake.setPower(-1);
+            feeder.setPower(-1);
         }
         else {
             intake.setPower(0);
+            feeder.setPower(0);
         }
 
         ////////////////////////feeder code///////
@@ -133,6 +152,13 @@ public class RICE_FC extends OpMode {
         else {
             feeder.setPower(0);
         }
+
+        double shooterVel = shooter.getVelocity();
+        shooter.setPower(shooterController.calculate(shooterVel));
+
+        double shooter2Vel = shooter_2.getVelocity();
+        shooter_2.setPower(shooter2Controller.calculate(shooter2Vel));
+
 
 //////////////////////////////////outtake extra code///////
         /*if (current > best) {
@@ -166,8 +192,8 @@ public class RICE_FC extends OpMode {
 
 
 /////////////////telemetry code//////////
-        telemetry.addData("velocity_shooter", shooter.getVelocity());
-        telemetry.addData("velocity_shooter2", shooter_2.getVelocity());
+        telemetry.addData("velocity_shooter", shooterVel);
+        telemetry.addData("velocity_shooter2", shooter2Vel);
         telemetry.addData("imu", robot_heading);
        // telemetry.update();
 
