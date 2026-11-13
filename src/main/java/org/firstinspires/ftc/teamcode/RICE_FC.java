@@ -4,6 +4,7 @@ import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -20,7 +21,8 @@ public class RICE_FC extends OpMode {
     double best;
 
     // DcMotor should become DcMotorEx. You also need an encoder cable on the shooter, and then you can use "setVelocity" commands instead of setPower
-    DcMotor shooter;
+    DcMotorEx shooter;
+    DcMotorEx shooter_2;
     Servo extension;
     DcMotor feeder;
     
@@ -54,9 +56,13 @@ public class RICE_FC extends OpMode {
         ////////////////////////////////////////////////////////
         intake = hardwareMap.get(DcMotor.class, "intake");
 
-        shooter = hardwareMap.get(DcMotor.class, "shooter");
-        shooter.setDirection(DcMotorSimple.Direction.REVERSE);
-intake.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        shooter = hardwareMap.get(DcMotorEx.class, "shooter");
+        shooter_2 =hardwareMap.get(DcMotorEx.class, "shooter_2");
+        // shooter.setDirection(DcMotorSimple.Direction.REVERSE);
+        intake.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        shooter.setVelocityPIDFCoefficients(20,0,0,15);
+        shooter_2.setVelocityPIDFCoefficients(20,0,0,15);
 
     }
     @Override
@@ -76,26 +82,35 @@ intake.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rf_motor.setPower(drive_power*(rotForward - turn - rotStrafe));
         rb_motor.setPower(drive_power*(rotForward - turn + rotStrafe));
 
+        rb_motor.setZeroPowerBehavior(rb_motor.getZeroPowerBehavior());
+        rf_motor.setZeroPowerBehavior(rb_motor.getZeroPowerBehavior());
+        lb_motor.setZeroPowerBehavior(rb_motor.getZeroPowerBehavior());
+        lf_motor.setZeroPowerBehavior(rb_motor.getZeroPowerBehavior());
+
 //        double current = gamepad2.right_trigger;
 /////////////shooter////////
         if (gamepad2.x) {
-            shooter.setPower(0.55);
+            shooter.setVelocity(1270);
+            shooter_2.setVelocity(1270);
         }
         else {
-            shooter.setPower(0);
+            shooter.setVelocity(0);
+            shooter_2.setVelocity(0);
         }
         ///////////servo extension//////
-        if (gamepad2.dpad_up) {
-            extension.setPosition(1);
-        } else if (gamepad2.dpad_down) {
-            extension.setPosition(0);
+        if (gamepad1.dpad_down) {
+            extension.setPosition(0.45);
+        } else if (gamepad1.dpad_right) {
+            extension.setPosition(0.1);
 
+        } else if (gamepad1.dpad_up) {
+            extension.setPosition(0.078);
         }
-///////drive faster/////////////
+///////drive slower/////////////
         if (gamepad1.right_bumper) {
             drive_power = 0.8;
         } else {
-            drive_power = 0.4;
+            drive_power = 0.5;
         }
         if (gamepad1.start) {
             imu.resetYaw();
@@ -151,8 +166,15 @@ intake.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
 
 /////////////////telemetry code//////////
+        telemetry.addData("velocity_shooter", shooter.getVelocity());
+        telemetry.addData("velocity_shooter2", shooter_2.getVelocity());
         telemetry.addData("imu", robot_heading);
        // telemetry.update();
+
+        telemetry.addData("lf_motor",lf_motor.getPower());
+        telemetry.addData("lb_motor",lb_motor.getPower());
+        telemetry.addData("rf_motor",rf_motor.getPower());
+        telemetry.addData("rb_motor",rb_motor.getPower());
 
         telemetry.addData("intake", intake.getPower());
 //        telemetry.update();

@@ -41,9 +41,7 @@ public class rice_auto1 extends LinearOpMode {
         // 3 - auto code
         telemetry.addData("Status", "hello");
         telemetry.update();
-        forward(1000, 1);
-//        sleep(1000);
-        turn(1000,1);
+        forward(500, 1);
 //        sleep(1000);
 
 
