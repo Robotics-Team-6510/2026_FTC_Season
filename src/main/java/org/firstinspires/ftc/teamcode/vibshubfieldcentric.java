@@ -16,7 +16,9 @@ public class vibshubfieldcentric extends OpMode {
     private DcMotor BRMotor;
     private DcMotor BLMotor;
     private DcMotor FIntakeMotor;
-    private DcMotor OuttakeMotor;
+    private DcMotor feeder;
+    private DcMotor shooter1;
+    private DcMotor shooter2;
 
     // Retrieve the IMU from the hardware map
     private IMU imu;
@@ -30,10 +32,12 @@ public class vibshubfieldcentric extends OpMode {
         BLMotor = hardwareMap.get(DcMotor.class, "bl");
 
         FIntakeMotor = hardwareMap.get(DcMotor.class, "fi");
-        OuttakeMotor = hardwareMap.get(DcMotor.class, "CHANGELATER");
+        shooter1 = hardwareMap.get(DcMotor.class, "bottoms");
+        shooter2 = hardwareMap.get(DcMotor.class, "tops");
+        feeder = hardwareMap.get(DcMotor.class, "feeder");
 
         // One side of motors will always need to be reversed so that they all spin in the same direction.
-        FRMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        FRMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         FLMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         BRMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         BLMotor.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -46,7 +50,7 @@ public class vibshubfieldcentric extends OpMode {
 
         imu = hardwareMap.get(IMU.class, "imu");
         // Adjust the orientation parameters to match your robot
-        RevHubOrientationOnRobot orientation = new RevHubOrientationOnRobot(RevHubOrientationOnRobot.LogoFacingDirection.UP, RevHubOrientationOnRobot.UsbFacingDirection.FORWARD);
+        RevHubOrientationOnRobot orientation = new RevHubOrientationOnRobot(RevHubOrientationOnRobot.LogoFacingDirection.UP, RevHubOrientationOnRobot.UsbFacingDirection.BACKWARD);
         IMU.Parameters parameters = new IMU.Parameters(orientation);
         // Without this, the REV Hub's orientation is assumed to be logo up / USB forward
         imu.initialize(parameters);
@@ -55,20 +59,28 @@ public class vibshubfieldcentric extends OpMode {
     @Override
     public void loop() {
         // Intake Controls
-        if (gamepad1.left_trigger_pressed){
+        if (gamepad2.left_trigger_pressed){
             FIntakeMotor.setPower(1.0);
-        } else if (gamepad1.right_trigger_pressed) {
+        } else if (gamepad2.right_trigger_pressed) {
             FIntakeMotor.setPower(-1.0);
         } else {
             FIntakeMotor.setPower(0.0);
         }
 
-        if (gamepad1.a) {
-            OuttakeMotor.setPower(1.0);
-        } else if (gamepad1.b) {
-            OuttakeMotor.setPower(-1.0);
+        if (gamepad2.b) {
+            feeder.setPower(-1.0);
+        } else if (gamepad2.a) {
+            feeder.setPower(1);
         } else {
-            OuttakeMotor.setPower(0);
+            feeder.setPower(0);
+        }
+
+        if (gamepad2.left_bumper) {
+            shooter1.setPower(0.85);
+            shooter2.setPower(-0.85);
+        } else {
+            shooter1.setPower(0);
+            shooter2.setPower(0);
         }
 
 
