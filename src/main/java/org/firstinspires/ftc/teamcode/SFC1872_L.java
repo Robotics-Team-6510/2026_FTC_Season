@@ -66,24 +66,24 @@ public class SFC1872_L extends OpMode {
         backLeft.setPower((forward+turn-strafe)*SPEED);
         backRight.setPower((forward-turn+strafe)*SPEED);
 
-        if (gamepad1.right_bumper) {
+        if (gamepad2.right_bumper) {
             intake.setPower(1);
-        }else if (gamepad1.left_bumper) {
+        }else if (gamepad2.left_bumper) {
             intake.setPower(-1);
         } else {
             intake.setPower(0);
         }
 
-        if (gamepad1.right_trigger > 0.5) {
+        if (gamepad2.right_trigger > 0.5) {
             ontake2.setPower(1);
-        }else if (gamepad1.left_trigger > 0.5) {
+        }else if (gamepad2.left_trigger > 0.5) {
             ontake2.setPower(-1);
         } else {
             ontake2.setPower(0);
         }
-        if (gamepad1.a) {
+        if (gamepad2.a) {
             feeder.setPower(1);
-        }else if (gamepad1.b) {
+        }else if (gamepad2.b) {
             feeder.setPower(-1);
         } else {
             feeder.setPower(0);
