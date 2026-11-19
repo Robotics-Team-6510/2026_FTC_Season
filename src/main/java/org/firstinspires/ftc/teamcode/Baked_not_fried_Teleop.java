@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.IMU;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
@@ -16,6 +17,8 @@ public class Baked_not_fried_Teleop extends OpMode {
 
     DcMotor RF, RB, LF, LB, I, F;
     DcMotorEx FS, SS;
+
+    Servo P;
 
     IMU imu;
 
@@ -31,6 +34,7 @@ public class Baked_not_fried_Teleop extends OpMode {
         F = hardwareMap.get(DcMotor.class, "f");
         FS = hardwareMap.get(DcMotorEx.class, "fs");
         SS = hardwareMap.get(DcMotorEx.class, "ss");
+        P = hardwareMap.get(Servo.class,"p");
 
         imu = hardwareMap.get(IMU.class, "imu");
 
@@ -71,28 +75,34 @@ public class Baked_not_fried_Teleop extends OpMode {
         LF.setPower(rotForward + turn + rotStrafe);
         LB.setPower(rotForward + turn - rotStrafe);
 
-        if(gamepad1.leftTriggerWasPressed()) {
+        if(gamepad2.left_trigger > 0.1) {
             I.setPower(1);
-        } else if(gamepad1.rightTriggerWasPressed()){
+        } else if(gamepad1.right_trigger > 0.1){
             I.setPower(-1);
         } else {
             I.setPower(0);
         }
 
-        if(gamepad1.dpadDownWasPressed()){
+        if(gamepad2.dpad_down){
             F.setPower(1);
-        } else if (gamepad1.dpadUpWasPressed()) {
+        } else if (gamepad1.dpad_up) {
             F.setPower(-1);
         } else {
             F.setPower(0);
         }
 
-        if (gamepad1.y) {
+        if (gamepad2.y) {
             FS.setVelocity(-2200);
             SS.setVelocity(-2400);
         } else {
             FS.setVelocity(0);
             SS.setVelocity(0);
+        }
+
+        if (gamepad2.a) {
+            P.setPosition(0.7);
+        } else {
+            P.setPosition(0);
         }
 
         if (gamepad1.options) {
