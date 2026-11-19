@@ -24,7 +24,7 @@ public class Sausage_Dog_Telemetry extends OpMode {
     private CRServo LeftSide, RightSide;
 
     double speed = 1;
-    int V = 500;
+    int V = 2325;
 
     @Override
     public void init() {
