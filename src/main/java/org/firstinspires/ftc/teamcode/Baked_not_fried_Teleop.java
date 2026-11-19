@@ -4,6 +4,7 @@ import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.IMU;
 
@@ -13,7 +14,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 public class Baked_not_fried_Teleop extends OpMode {
     // 1 - declare variables
 
-    DcMotor RF, RB, LF, LB, I, F, FS, SS;
+    DcMotor RF, RB, LF, LB, I, F;
+    DcMotorEx FS, SS;
 
     IMU imu;
 
@@ -27,20 +29,19 @@ public class Baked_not_fried_Teleop extends OpMode {
         LB = hardwareMap.get(DcMotor.class, "lb");
         I = hardwareMap.get(DcMotor.class, "i");
         F = hardwareMap.get(DcMotor.class, "f");
-        FS = hardwareMap.get(DcMotor.class, "fs");
-        SS = hardwareMap.get(DcMotor.class, "ss");
-
-
+        FS = hardwareMap.get(DcMotorEx.class, "fs");
+        SS = hardwareMap.get(DcMotorEx.class, "ss");
 
         imu = hardwareMap.get(IMU.class, "imu");
-
-
 
         RF.setDirection(DcMotorSimple.Direction.FORWARD);
         RB.setDirection(DcMotorSimple.Direction.FORWARD);
         LF.setDirection(DcMotorSimple.Direction.REVERSE);
         LB.setDirection(DcMotorSimple.Direction.REVERSE);
         F.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        FS.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        SS.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
                 RevHubOrientationOnRobot.LogoFacingDirection.UP,
@@ -70,36 +71,32 @@ public class Baked_not_fried_Teleop extends OpMode {
         LF.setPower(rotForward + turn + rotStrafe);
         LB.setPower(rotForward + turn - rotStrafe);
 
-        if (gamepad1.right_trigger > 0.1) {
+        if(gamepad1.leftTriggerWasPressed()) {
             I.setPower(1);
-            F.setPower(1);
+        } else if(gamepad1.rightTriggerWasPressed()){
+            I.setPower(-1);
         } else {
             I.setPower(0);
-            F.setPower(0);
         }
 
-        if (gamepad1.left_trigger > 0.1) {
-            I.setPower(-1);
+        if(gamepad1.dpadDownWasPressed()){
+            F.setPower(1);
+        } else if (gamepad1.dpadUpWasPressed()) {
             F.setPower(-1);
         } else {
-            I.setPower(0);
             F.setPower(0);
         }
 
         if (gamepad1.y) {
-            FS.setPower(-1);
-            SS.setPower(-1);
+            FS.setVelocity(-2200);
+            SS.setVelocity(-2400);
         } else {
-            FS.setPower(0);
-            SS.setPower(0);
+            FS.setVelocity(0);
+            SS.setVelocity(0);
         }
 
         if (gamepad1.options) {
             imu.resetYaw();
         }
-
-
     }
-
-
 }
