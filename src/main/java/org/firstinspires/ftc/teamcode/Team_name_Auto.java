@@ -7,7 +7,6 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.IMU;
 
-
 @Autonomous
 //hi
 public class Team_name_Auto extends LinearOpMode {
@@ -44,20 +43,25 @@ public class Team_name_Auto extends LinearOpMode {
         sleep(2000);
         I1Motor.setPower(0);
 
+        driveForward(1000, 1);
+
+    }
+
+    public void driveForward(int targetPosition, double power){
         FRMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         FLMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         BRMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         BLMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        FRMotor.setTargetPosition(1000);
-        FLMotor.setTargetPosition(1000);
-        BRMotor.setTargetPosition(1000);
-        BLMotor.setTargetPosition(1000);
+        FRMotor.setTargetPosition(targetPosition);
+        FLMotor.setTargetPosition(targetPosition);
+        BRMotor.setTargetPosition(targetPosition);
+        BLMotor.setTargetPosition(targetPosition);
 
-        FRMotor.setPower(1);
-        FLMotor.setPower(1);
-        BRMotor.setPower(1);
-        BLMotor.setPower(1);
+        FRMotor.setPower(power);
+        FLMotor.setPower(power);
+        BRMotor.setPower(power);
+        BLMotor.setPower(power);
 
         FRMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         FLMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -70,8 +74,5 @@ public class Team_name_Auto extends LinearOpMode {
                 break;
             }
         }
-
-
     }
-
 }

@@ -1,33 +1,25 @@
 package org.firstinspires.ftc.teamcode;
+// ^^ Must match the folder our Java Class is in, check the left hand side of the screen.
 
-import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+// Prewritten Code that is imported so we don't have to write EVERYTHING from scratch.
+// Delete what you don't need.
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.IMU;
-
+import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
-@TeleOp(group="Other Samples")
-public class Team_Name_Centric_Code extends OpMode {
+@TeleOp(name = "test",group="Other Samples")
+public class Team_Name_Teleop_Code extends OpMode {
     // Declare Motors, Variables, and Functions
-    private DcMotor fr;
-    private DcMotor fl;
-    private DcMotor br;
-    private DcMotor bl;
-    private DcMotor CRServo;
-    private DcMotor i1;
+    private DcMotor fr, fl, br, bl, i1, shooter;
+    private CRServo servo;
     private IMU imu;
-    private DcMotor I1Motor;
 
-
-    public int bob;
-
-    // storage location || Class || Name
-    // Private || DcMotor || BLMotor
-
+    // private DcMotor I1Motor;
     // All Config and Hardware Mapping
     @Override
     public void init() {
@@ -37,21 +29,21 @@ public class Team_Name_Centric_Code extends OpMode {
         br = hardwareMap.get(DcMotor.class, "br");
         bl = hardwareMap.get(DcMotor.class, "bl");
         i1 = hardwareMap.get(DcMotor.class, "i1");
-        CRServo = hardwareMap.get(DcMotor.class, "ls");
-
+        servo = hardwareMap.get(CRServo.class, "ls");
+        shooter = hardwareMap.get(DcMotor.class, "shtr");
 
         imu = hardwareMap.get(IMU.class, "imu");
 
         IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
                 RevHubOrientationOnRobot.LogoFacingDirection.UP,
                 RevHubOrientationOnRobot.UsbFacingDirection.LEFT));
-// Without this, the REV Hub's orientation is assumed to be logo up / USB forward
+        // Without this, the REV Hub's orientation is assumed to be logo up / USB forward
         imu.initialize(parameters);
         imu.resetYaw();
 
         // One side of motors will always need to be reversed so that they all spin in the same direction.
-        fr.setDirection(DcMotorSimple.Direction.FORWARD);
-        fl.setDirection(DcMotorSimple.Direction.FORWARD);
+        fr.setDirection(DcMotorSimple.Direction.REVERSE);
+        fl.setDirection(DcMotorSimple.Direction.REVERSE);
         br.setDirection(DcMotorSimple.Direction.REVERSE);
         bl.setDirection(DcMotorSimple.Direction.FORWARD);
 
@@ -61,7 +53,6 @@ public class Team_Name_Centric_Code extends OpMode {
         br.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         bl.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
-
 
     @Override
     public void loop() {
@@ -85,7 +76,6 @@ public class Team_Name_Centric_Code extends OpMode {
             SpeedScaler = 0.25;
         }
 
-
         // Calculate the power for each Motor, combine the 3 above commented sections, multiply by the Scaler
         double FRPower = (ForwardBackwards - Turn - LeftRight) * SpeedScaler;
         double FLPower = (ForwardBackwards + Turn + LeftRight) * SpeedScaler;
@@ -98,24 +88,32 @@ public class Team_Name_Centric_Code extends OpMode {
         br.setPower(BRPower);
         bl.setPower(BLPower);
 
+        telemetry.addData("hi", 1);
         telemetry.addData("what is 9 + 10?", 21);
         telemetry.addData("YAWWWWW", imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES));
         telemetry.update();
 
-        if (gamepad1.left_bumper) {
-            I1Motor.setPower(-1);
+        if (gamepad2.left_bumper) {
+            i1.setPower(-1);
         } else if (gamepad1.right_bumper) {
-            I1Motor.setPower(1);
+            i1.setPower(1);
         } else {
-            I1Motor.setPower(0);
+            i1.setPower(0);
         }
 
-        if (gamepad1.x) {
-            CRServo.setPower(-1);
-        } else if (gamepad1.x) {
-            CRServo.setPower(1);
+        if (gamepad2.x) {
+            servo.setPower(-1);
+        } else if (gamepad1.y) {
+            servo.setPower(1);
+        } else {
+            servo.setPower(0);
         }
 
+        if (gamepad2.b) {
+            shooter.setPower(-1);
+        } else {
+            shooter.setPower(0);
+        }
 
     }
 
