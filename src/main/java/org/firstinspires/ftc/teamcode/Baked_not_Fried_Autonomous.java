@@ -52,7 +52,7 @@ public class Baked_not_Fried_Autonomous extends LinearOpMode {
         }
     }
 
-    public void turn(int distance, double speed) {
+    public void turnRight(int distance, double speed) {
         // Run Once Here
 //35971
         RF.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -79,7 +79,7 @@ public class Baked_not_Fried_Autonomous extends LinearOpMode {
         }
     }
 
-    public void strafe(int distance, double speed) {
+    public void strafeR(int distance, double speed) {
         // Run Once Here
 //35971
         RF.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -106,14 +106,7 @@ public class Baked_not_Fried_Autonomous extends LinearOpMode {
         }
     }
 
-    public void setShooters(){
-        FS.setVelocity(-2200);
-        SS.setVelocity(-2400);
-    }
-    public void stopShooters(){
-        FS.setVelocity(0);
-        SS.setVelocity(0);
-    }
+
 
     @Override
     public void runOpMode(){
@@ -147,15 +140,20 @@ public class Baked_not_Fried_Autonomous extends LinearOpMode {
 
         waitForStart();
 
-       move(1000,0.7);
-       turn(-500, 0.4);
-       strafe(750, 0.2);
-       setShooters();
-       sleep(1000);
-       stopShooters();
+       FS.setPower(-1);
+       SS.setPower(-1);
+       sleep(3000);
        I.setPower(1);
-       move(2000, 0.3);
+       F.setPower(0.75);
+       sleep(3000);
+       FS.setPower(0);
+       SS.setPower(0);
+       F.setPower(0);
        I.setPower(0);
+       move(-700,1);
+       strafeR(2000,1);
+       move(-2500,1);
+
 
     }
 }

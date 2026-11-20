@@ -55,11 +55,15 @@ public class Baked_not_fried_Teleop extends OpMode {
 
         imu.resetYaw();
 
+
+        F.setDirection(DcMotorSimple.Direction.REVERSE);
+        FS.setDirection(DcMotorSimple.Direction.REVERSE);
+        SS.setDirection(DcMotorSimple.Direction.REVERSE);
     }
 
     @Override
     public void loop(){
-        // 3 - acual drive code
+        // 3 - actual drive code and field centric
 
         double botHeading = -imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
 
@@ -70,6 +74,8 @@ public class Baked_not_fried_Teleop extends OpMode {
         double rotStrafe = strafe * Math.cos(botHeading) - forward * Math.sin(botHeading);
         double rotForward = strafe * Math.sin(botHeading) + forward * Math.cos(botHeading);
 
+        double shooterSpeed = 1725;
+
         RF.setPower(rotForward - turn - rotStrafe);
         RB.setPower(rotForward - turn + rotStrafe);
         LF.setPower(rotForward + turn + rotStrafe);
@@ -77,23 +83,23 @@ public class Baked_not_fried_Teleop extends OpMode {
 
         if(gamepad2.left_trigger > 0.1) {
             I.setPower(1);
-        } else if(gamepad1.right_trigger > 0.1){
+        } else if(gamepad2.right_trigger > 0.1){
             I.setPower(-1);
         } else {
             I.setPower(0);
         }
 
         if(gamepad2.dpad_down){
-            F.setPower(1);
-        } else if (gamepad1.dpad_up) {
             F.setPower(-1);
+        } else if (gamepad2.dpad_up) {
+            F.setPower(1);
         } else {
             F.setPower(0);
         }
 
         if (gamepad2.y) {
-            FS.setVelocity(-2200);
-            SS.setVelocity(-2400);
+            FS.setVelocity(2200);
+            SS.setVelocity(2400);
         } else {
             FS.setVelocity(0);
             SS.setVelocity(0);
