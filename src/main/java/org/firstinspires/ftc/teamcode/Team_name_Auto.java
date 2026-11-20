@@ -39,7 +39,7 @@ public class Team_name_Auto extends LinearOpMode {
         waitForStart();
         // Auto Sequence
 
-        I1Motor.setPower(-1);
+        I1Motor.setPower(1);
         sleep(2000);
         I1Motor.setPower(0);
 
