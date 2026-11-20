@@ -152,24 +152,23 @@ public class Baked_not_Fried_Autonomous_4 extends LinearOpMode {
         imu.resetYaw();
 
         waitForStart();
-        move(-900,1);
-        strafeR(750,1);
-        P.setPosition(0.69);
-        sleep(500);
-        move(950,0.1);
-        I.setPower(1);
-        sleep(2000);
-        move(-500,1);
-        P.setPosition(0);
-        strafeR(-1500, 1);
-        move(-500,1);
-        turnRight(-1000, 1);
-        FS.setVelocity(1700);
-        SS.setVelocity(1900);
-        sleep(2500);
-        I.setPower(1);
-        F.setVelocity(1300);
+
+        move(-1500,1);
+        move(1500,1);
+        FS.setVelocity(1800);
+        SS.setVelocity(1750);
         sleep(3000);
+        I.setPower(1);
+        F.setPower(0.75);
+        sleep(3000);
+        FS.setVelocity(0);
+        SS.setVelocity(0);
+        F.setPower(0);
+        I.setPower(0);
+        move(-1000,1);
+        strafeR(-1500, 1);
+
+
 
 
 
