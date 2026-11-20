@@ -13,7 +13,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 @TeleOp
 @Disabled
 public class NEW_Entropy_Teleop extends OpMode {
-    private DcMotor front_left, front_right, back_right, back_left, intake, outtake1, outtake2
+    private DcMotor front_left, front_right, back_right, back_left, intake, outtake1, outtake2, conveyor;
+
     @Override
     public void init() {
         front_left = hardwareMap.get(DcMotor.class, "front_left");
@@ -22,6 +23,7 @@ public class NEW_Entropy_Teleop extends OpMode {
         back_right = hardwareMap.get(DcMotor.class, "back_right");
 
         intake = hardwareMap.get(DcMotor.class,"intake");
+        conveyor = hardwareMap.get(DcMotor.class,"conveyor");
         outtake1 = hardwareMap.get(DcMotor.class,"outtake1");
         outtake2 = hardwareMap.get(DcMotor.class,"outtake2");
 
@@ -64,12 +66,18 @@ public class NEW_Entropy_Teleop extends OpMode {
             intake.setPower(0);
         }
 
+        if (gamepad1.a){
+            conveyor.setPower(1);
+        } else {
+            conveyor.setPower(0);
+        }
+
         if (gamepad1.right_bumper) {
             outtake1.setPower(1);
             outtake2.setPower(1);
         } else {
             outtake1.setPower(0);
-            outtake2.setPower(0)
+            outtake2.setPower(0);
         }
 
     }

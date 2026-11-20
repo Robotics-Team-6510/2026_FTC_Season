@@ -14,7 +14,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 @Autonomous(group = "Entropy")
 public class Auto extends LinearOpMode {
     // Declare OpMode members, put motors, devices, etc all here. i.e: private DcMotor LeftFront;
-    DcMotor front_left, front_right, back_right, back_left, intake, outtake1, outtake2;
+    DcMotor front_left, front_right, back_right, back_left, intake, outtake1, outtake2, conveyor;
 
     @Override
     public void runOpMode() {
@@ -36,6 +36,7 @@ public class Auto extends LinearOpMode {
         back_right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         intake = hardwareMap.get(DcMotor.class,"intake");
+        conveyor = hardwareMap.get(DcMotor.class, "conveyor");
         outtake1 = hardwareMap.get(DcMotor.class,"outtake1");
         outtake2 = hardwareMap.get(DcMotor.class,"outtake2");
 
