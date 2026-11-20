@@ -14,9 +14,9 @@ import com.qualcomm.robotcore.hardware.IMU;
 // @Autonomous so it shows up in the right area of the Driver Station
 // Do NOT give it a name "name = "something"", leave the name blank, and it will use the filename
 // Code with the same group name will be grouped together in the driver station
-@Autonomous(group = "Baked_not_Fried_Autonomous_2")
+@Autonomous(group = "Baked_not_Fried_Autonomous_3")
 
-public class Baked_not_Fried_Autonomous_2 extends LinearOpMode {
+public class Baked_not_Fried_Autonomous_3 extends LinearOpMode {
     // Declare OpMode members, put motors, devices, etc all here. i.e: private DcMotor LeftFront;
     // 1 - declare variables
 
