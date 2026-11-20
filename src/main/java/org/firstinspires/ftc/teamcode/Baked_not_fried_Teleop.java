@@ -81,6 +81,7 @@ public class Baked_not_fried_Teleop extends OpMode {
         LF.setPower(rotForward + turn + rotStrafe);
         LB.setPower(rotForward + turn - rotStrafe);
 
+
         if(gamepad2.left_trigger > 0.1) {
             I.setPower(1);
         } else if(gamepad2.right_trigger > 0.1){
