@@ -10,6 +10,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.IMU;
+import com.qualcomm.robotcore.hardware.Servo;
 
 // @Autonomous so it shows up in the right area of the Driver Station
 // Do NOT give it a name "name = "something"", leave the name blank, and it will use the filename
@@ -23,6 +24,7 @@ public class Baked_not_Fried_Autonomous_3 extends LinearOpMode {
     DcMotor RF, RB, LF, LB, I;
     DcMotorEx FS, SS, F;
 
+    Servo P;
     IMU imu;
 
     public void move(int distance, double speed) {
@@ -118,6 +120,7 @@ public class Baked_not_Fried_Autonomous_3 extends LinearOpMode {
         F = hardwareMap.get(DcMotorEx.class, "f");
         FS = hardwareMap.get(DcMotorEx.class, "fs");
         SS = hardwareMap.get(DcMotorEx.class, "ss");
+        P = hardwareMap.get(Servo.class, "p");
 
         imu = hardwareMap.get(IMU.class, "imu");
 
@@ -139,6 +142,16 @@ public class Baked_not_Fried_Autonomous_3 extends LinearOpMode {
         imu.resetYaw();
 
         waitForStart();
+        move(-700,1);
+        strafeR(-700,1);
+        P.setPosition(0.7);
+        move(550,1);
+        I.setPower(1);
+        sleep(2500);
+        move(-400,1);
+        P.setPosition(0);
+        strafeR(-1000, 1);
+
 
 
 

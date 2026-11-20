@@ -98,8 +98,8 @@ public class Baked_not_fried_Teleop extends OpMode {
         }
 
         if (gamepad2.y) {
-            FS.setVelocity(2200);
-            SS.setVelocity(2400);
+            FS.setVelocity(shooterSpeed);
+            SS.setVelocity(shooterSpeed);
         } else {
             FS.setVelocity(0);
             SS.setVelocity(0);
