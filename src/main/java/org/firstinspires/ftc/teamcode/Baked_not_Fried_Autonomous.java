@@ -121,10 +121,11 @@ public class Baked_not_Fried_Autonomous extends LinearOpMode {
 
         imu = hardwareMap.get(IMU.class, "imu");
 
-        RF.setDirection(DcMotorSimple.Direction.FORWARD);
-        RB.setDirection(DcMotorSimple.Direction.FORWARD);
-        LF.setDirection(DcMotorSimple.Direction.REVERSE);
-        LB.setDirection(DcMotorSimple.Direction.REVERSE);
+        RF.setDirection(DcMotorSimple.Direction.REVERSE);
+        RB.setDirection(DcMotorSimple.Direction.REVERSE);
+        LF.setDirection(DcMotorSimple.Direction.FORWARD);
+        LB.setDirection(DcMotorSimple.Direction.FORWARD);
+        F.setDirection(DcMotorSimple.Direction.FORWARD);
 
 
         FS.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -144,18 +145,18 @@ public class Baked_not_Fried_Autonomous extends LinearOpMode {
 
         waitForStart();
 
-       FS.setPower(1);
-       SS.setPower(1);
+       FS.setVelocity(1725);
+       SS.setVelocity(1725);
        sleep(3000);
        I.setPower(1);
        F.setPower(0.75);
        sleep(3000);
-       FS.setPower(0);
-       SS.setPower(0);
+       FS.setVelocity(0);
+       SS.setVelocity(0);
        F.setPower(0);
        I.setPower(0);
-       move(700,1);
-       strafeR(-1800,1);
+       move(-700,1);
+       strafeR(1800,1);
        move(-2500,1);
 
 
