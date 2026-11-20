@@ -49,6 +49,12 @@ public class Baked_not_Fried_Autonomous_2 extends LinearOpMode {
         LB.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         while(RF.isBusy() || RB.isBusy() || LF.isBusy() || LB.isBusy()) {//  Run Once Here
+            telemetry.addData("RF pos", RF.getCurrentPosition());
+            telemetry.addData("RB pos", RB.getCurrentPosition());
+            telemetry.addData("LF pos", LF.getCurrentPosition());
+            telemetry.addData("LB pos", LB.getCurrentPosition());
+
+            telemetry.update();
         }
     }
 
@@ -121,11 +127,11 @@ public class Baked_not_Fried_Autonomous_2 extends LinearOpMode {
 
         imu = hardwareMap.get(IMU.class, "imu");
 
-        RF.setDirection(DcMotorSimple.Direction.FORWARD);
-        RB.setDirection(DcMotorSimple.Direction.FORWARD);
-        LF.setDirection(DcMotorSimple.Direction.REVERSE);
-        LB.setDirection(DcMotorSimple.Direction.REVERSE);
-        F.setDirection(DcMotorSimple.Direction.REVERSE);
+        RF.setDirection(DcMotorSimple.Direction.REVERSE);
+        RB.setDirection(DcMotorSimple.Direction.REVERSE);
+        LF.setDirection(DcMotorSimple.Direction.FORWARD);
+        LB.setDirection(DcMotorSimple.Direction.FORWARD);
+        F.setDirection(DcMotorSimple.Direction.FORWARD);
 
         FS.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         SS.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
