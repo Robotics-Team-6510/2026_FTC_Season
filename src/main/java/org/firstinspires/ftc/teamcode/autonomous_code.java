@@ -27,18 +27,21 @@ public class autonomous_code extends LinearOpMode {
         BRMotor.setPower(pow);
         BLMotor.setPower(pow);
     }
+
     private void runPositionAll() {
         FRMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         FLMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         BRMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         BLMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
+
     private void stop_resetCoder() {
         FRMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         FLMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         BRMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         BLMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
+
     private boolean waitMotor() {
         boolean needWait = FRMotor.isBusy() || FLMotor.isBusy() || BRMotor.isBusy() || BLMotor.isBusy();
         return needWait;
@@ -51,20 +54,24 @@ public class autonomous_code extends LinearOpMode {
         BRMotor.setTargetPosition(target);
         BLMotor.setTargetPosition(target);
         runPositionAll();
-        while (waitMotor()) {}
+        while (waitMotor()) {
+        }
         stop_resetCoder();
 
     }
-    private void rotation(double pow, int target){
+
+    private void rotation(double pow, int target) {
         setPowerAll(pow);
         FRMotor.setTargetPosition(target);
         FLMotor.setTargetPosition(-target);
         BRMotor.setTargetPosition(target);
         BLMotor.setTargetPosition(-target);
         runPositionAll();
-        while (waitMotor()) {}
+        while (waitMotor()) {
+        }
         stop_resetCoder();
     }
+
     @Override
     public void runOpMode() {
         // init
@@ -90,12 +97,13 @@ public class autonomous_code extends LinearOpMode {
         waitForStart();
         // Auto Sequence
         forwardBackward(0.5, 1024);
-        rotation(0.8, -400);
+        forwardBackward(0.5, -1024);
+        //rotation(0.8, -400);
 
 
-        FIntakeMotor.setPower(1);
-        sleep(5000);
-        FIntakeMotor.setPower(0);
+        //FIntakeMotor.setPower(1);
+        //sleep(5000);
+        //FIntakeMotor.setPower(0);
 
     }
 
