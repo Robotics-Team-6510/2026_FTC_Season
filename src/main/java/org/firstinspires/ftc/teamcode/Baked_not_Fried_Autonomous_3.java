@@ -152,12 +152,11 @@ public class Baked_not_Fried_Autonomous_3 extends LinearOpMode {
         imu.resetYaw();
 
         waitForStart();
-        move(-700,1);
-        strafeR(-700,1);
+        move(-900,1);
+        strafeR(-750,1);
         P.setPosition(0.7);
-        move(550,1);
+        move(900,0.1);
         I.setPower(1);
-        sleep(2500);
         move(-400,1);
         P.setPosition(0);
         strafeR(-1000, 1);

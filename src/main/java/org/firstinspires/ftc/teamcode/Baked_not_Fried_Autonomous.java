@@ -145,8 +145,8 @@ public class Baked_not_Fried_Autonomous extends LinearOpMode {
 
         waitForStart();
 
-       FS.setVelocity(1725);
-       SS.setVelocity(1725);
+       FS.setVelocity(1800);
+       SS.setVelocity(1750);
        sleep(3000);
        I.setPower(1);
        F.setPower(0.75);
@@ -156,8 +156,9 @@ public class Baked_not_Fried_Autonomous extends LinearOpMode {
        F.setPower(0);
        I.setPower(0);
        move(-700,1);
-       strafeR(1800,1);
-       move(-2500,1);
+       strafeR(1700,1);
+       move(-3000,1);
+       strafeR(300,1);
 
 
     }
