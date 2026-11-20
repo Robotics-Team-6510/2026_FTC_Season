@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -12,65 +11,72 @@ import com.qualcomm.robotcore.hardware.IMU;
 public class Team_name_Auto extends LinearOpMode {
     // Declare OpMode members, put motors, devices, etc all here. i.e: private DcMotor LeftFront;
     // 1 - var
-    private DcMotor FRMotor;
-    private DcMotor FLMotor;
-    private DcMotor BRMotor;
-    private DcMotor BLMotor;
+    private DcMotor fr;
+    private DcMotor fl;
+    private DcMotor br;
+    private DcMotor bl;
     private IMU imu;
-    private DcMotor I1Motor;
+    private DcMotor i1;
 
     private double Threshold = 0.05;
 
     @Override
     public void runOpMode() {
         // INIT SECTION
-        FRMotor = hardwareMap.get(DcMotor.class, "fr");
-        FLMotor = hardwareMap.get(DcMotor.class, "fl");
-        BRMotor = hardwareMap.get(DcMotor.class, "br");
-        BLMotor = hardwareMap.get(DcMotor.class, "bl");
-        I1Motor = hardwareMap.get(DcMotor.class, "i1");
+        fr = hardwareMap.get(DcMotor.class, "fr");
+        fl = hardwareMap.get(DcMotor.class, "fl");
+        br = hardwareMap.get(DcMotor.class, "br");
+        bl = hardwareMap.get(DcMotor.class, "bl");
+        i1 = hardwareMap.get(DcMotor.class, "i1");
 
-        FRMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-        FLMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-        BRMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        BLMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        fr.setDirection(DcMotorSimple.Direction.FORWARD);
+        fl.setDirection(DcMotorSimple.Direction.FORWARD);
+        br.setDirection(DcMotorSimple.Direction.REVERSE);
+        bl.setDirection(DcMotorSimple.Direction.FORWARD);
 
 
         waitForStart();
         // Auto Sequence
 
-        I1Motor.setPower(1);
-        sleep(2000);
-        I1Motor.setPower(0);
+//        fl.setTargetPosition(1024);
+//        fr.setTargetPosition(1024);
+//        bl.setTargetPosition(1024);
+//        br.setTargetPosition(1024);
+//        fl.setPower(0.3);
+//        fr.setPower(0.3);
+//        bl.setPower(0.3);
+//        br.setPower(0.3);
+        drive(1024, 0.3);
 
-        driveForward(1000, 1);
+
+
 
     }
 
-    public void driveForward(int targetPosition, double power){
-        FRMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        FLMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        BRMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        BLMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+    public void drive(int targetPosition, double power){
+        fr.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        fl.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        br.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        bl.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        FRMotor.setTargetPosition(targetPosition);
-        FLMotor.setTargetPosition(targetPosition);
-        BRMotor.setTargetPosition(targetPosition);
-        BLMotor.setTargetPosition(targetPosition);
+        fr.setTargetPosition(targetPosition);
+        fl.setTargetPosition(targetPosition);
+        br.setTargetPosition(targetPosition);
+        bl.setTargetPosition(targetPosition);
 
-        FRMotor.setPower(power);
-        FLMotor.setPower(power);
-        BRMotor.setPower(power);
-        BLMotor.setPower(power);
+        fr.setPower(power);
+        fl.setPower(power);
+        br.setPower(power);
+        bl.setPower(power);
 
-        FRMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        FLMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        BRMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        BLMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        fr.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        fl.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        br.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        bl.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        while (FRMotor.isBusy()||FLMotor.isBusy() ||BRMotor.isBusy() || BLMotor.isBusy() ) {
-            if(FRMotor.getPower() < Threshold && BRMotor.getPower() < Threshold &&
-                    BLMotor.getPower() < Threshold && BRMotor.getPower() < Threshold) {
+        while (fr.isBusy()||fl.isBusy() ||br.isBusy() || bl.isBusy() ) {
+            if(fr.getPower() < Threshold && br.getPower() < Threshold &&
+                    bl.getPower() < Threshold && br.getPower() < Threshold) {
                 break;
             }
         }
