@@ -11,7 +11,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 @TeleOp()
 public class SFC1872_L extends OpMode {
     // Declare Variables
-    private DcMotor frontLeft, frontRight, backRight, backLeft,intake,ontake2, feeder;
+    private DcMotor frontLeft, frontRight, backRight, backLeft,intake,ontake2,ontake1, feeder;
     private IMU london;
 
     @Override
@@ -23,6 +23,7 @@ public class SFC1872_L extends OpMode {
         backRight = hardwareMap.get(DcMotor.class, "backrightwheel");
         intake = hardwareMap.get(DcMotor.class, "intake");
         ontake2 = hardwareMap.get(DcMotor.class,"ontake2");
+        ontake1 = hardwareMap.get(DcMotor.class,"ontake1");
         feeder = hardwareMap.get(DcMotor.class,"feeder");
 
         frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -66,29 +67,35 @@ public class SFC1872_L extends OpMode {
         backLeft.setPower((forward+turn-strafe)*SPEED);
         backRight.setPower((forward-turn+strafe)*SPEED);
 
-        if (gamepad2.right_bumper) {
+        if (gamepad1.right_bumper) {
             intake.setPower(1);
-        }else if (gamepad2.left_bumper) {
+        }else if (gamepad1.left_bumper) {
             intake.setPower(-1);
         } else {
             intake.setPower(0);
         }
 
-        if (gamepad2.right_trigger > 0.5) {
+        if (gamepad1.right_trigger > 0.5) {
             ontake2.setPower(1);
-        }else if (gamepad2.left_trigger > 0.5) {
+        }else if (gamepad1.left_trigger > 0.5) {
             ontake2.setPower(-1);
         } else {
             ontake2.setPower(0);
         }
-        if (gamepad2.a) {
+        if (gamepad1.a) {
             feeder.setPower(1);
-        }else if (gamepad2.b) {
+        }else if (gamepad1.b) {
             feeder.setPower(-1);
         } else {
             feeder.setPower(0);
         }
-
+        if (gamepad1.right_trigger > 0.5) {
+            ontake1.setPower(1);
+        }else if (gamepad1.left_trigger > 0.5) {
+            ontake1.setPower(-1);
+        } else {
+            ontake1.setPower(0);
+        }
         telemetry.addData("anything", london.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES));
         telemetry.update();
 
