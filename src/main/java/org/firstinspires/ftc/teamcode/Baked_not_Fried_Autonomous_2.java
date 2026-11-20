@@ -133,6 +133,9 @@ public class Baked_not_Fried_Autonomous_2 extends LinearOpMode {
         LB.setDirection(DcMotorSimple.Direction.FORWARD);
         F.setDirection(DcMotorSimple.Direction.FORWARD);
 
+        FS.setDirection(DcMotorSimple.Direction.REVERSE);
+        SS.setDirection(DcMotorSimple.Direction.REVERSE);
+
         FS.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         SS.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
@@ -150,11 +153,11 @@ public class Baked_not_Fried_Autonomous_2 extends LinearOpMode {
         move(-300,1);
         turnRight(350,1);
         I.setPower(0);
-        FS.setVelocity(-1700);
-        SS.setVelocity(-1900);
+        FS.setVelocity(1700);
+        SS.setVelocity(1900);
         sleep(2500);
-        FS.setPower(-1);
-        SS.setPower(-1);
+        FS.setPower(0);
+        SS.setPower(0);
         F.setVelocity(1300);
         I.setPower(1);
 

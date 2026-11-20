@@ -25,6 +25,7 @@ public class Baked_not_Fried_Autonomous_3 extends LinearOpMode {
     DcMotorEx FS, SS, F;
 
     Servo P;
+
     IMU imu;
 
     public void move(int distance, double speed) {
@@ -51,6 +52,12 @@ public class Baked_not_Fried_Autonomous_3 extends LinearOpMode {
         LB.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         while(RF.isBusy() || RB.isBusy() || LF.isBusy() || LB.isBusy()) {//  Run Once Here
+            telemetry.addData("RF pos", RF.getCurrentPosition());
+            telemetry.addData("RB pos", RB.getCurrentPosition());
+            telemetry.addData("LF pos", LF.getCurrentPosition());
+            telemetry.addData("LB pos", LB.getCurrentPosition());
+
+            telemetry.update();
         }
     }
 
@@ -120,15 +127,18 @@ public class Baked_not_Fried_Autonomous_3 extends LinearOpMode {
         F = hardwareMap.get(DcMotorEx.class, "f");
         FS = hardwareMap.get(DcMotorEx.class, "fs");
         SS = hardwareMap.get(DcMotorEx.class, "ss");
-        P = hardwareMap.get(Servo.class, "p");
+        P = hardwareMap.get(Servo.class,"p");
 
         imu = hardwareMap.get(IMU.class, "imu");
 
-        RF.setDirection(DcMotorSimple.Direction.FORWARD);
-        RB.setDirection(DcMotorSimple.Direction.FORWARD);
-        LF.setDirection(DcMotorSimple.Direction.REVERSE);
-        LB.setDirection(DcMotorSimple.Direction.REVERSE);
-        F.setDirection(DcMotorSimple.Direction.REVERSE);
+        RF.setDirection(DcMotorSimple.Direction.REVERSE);
+        RB.setDirection(DcMotorSimple.Direction.REVERSE);
+        LF.setDirection(DcMotorSimple.Direction.FORWARD);
+        LB.setDirection(DcMotorSimple.Direction.FORWARD);
+        F.setDirection(DcMotorSimple.Direction.FORWARD);
+
+        FS.setDirection(DcMotorSimple.Direction.REVERSE);
+        SS.setDirection(DcMotorSimple.Direction.REVERSE);
 
         FS.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         SS.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
