@@ -29,10 +29,10 @@ public class Team_name_Auto extends LinearOpMode {
         bl = hardwareMap.get(DcMotor.class, "bl");
         i1 = hardwareMap.get(DcMotor.class, "i1");
 
-        fr.setDirection(DcMotorSimple.Direction.FORWARD);
+        fr.setDirection(DcMotorSimple.Direction.REVERSE);
         fl.setDirection(DcMotorSimple.Direction.FORWARD);
         br.setDirection(DcMotorSimple.Direction.REVERSE);
-        bl.setDirection(DcMotorSimple.Direction.FORWARD);
+        bl.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
         waitForStart();
@@ -47,13 +47,14 @@ public class Team_name_Auto extends LinearOpMode {
 //        bl.setPower(0.3);
 //        br.setPower(0.3);
         drive(1024, 0.3);
-
+        drive(-512, -0.3);
+        sideways(900, 0.3);
 
 
 
     }
 
-    public void drive(int targetPosition, double power){
+    public void drive(int targetPosition, double power) {
         fr.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         fl.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         br.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -74,8 +75,37 @@ public class Team_name_Auto extends LinearOpMode {
         br.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         bl.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        while (fr.isBusy()||fl.isBusy() ||br.isBusy() || bl.isBusy() ) {
-            if(fr.getPower() < Threshold && br.getPower() < Threshold &&
+        while (fr.isBusy() || fl.isBusy() || br.isBusy() || bl.isBusy()) {
+            if (fr.getPower() < Threshold && br.getPower() < Threshold &&
+                    bl.getPower() < Threshold && br.getPower() < Threshold) {
+                break;
+            }
+        }
+    }
+
+    public void sideways(int targetPosition, double power) {
+        fr.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        fl.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        br.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        bl.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        fr.setTargetPosition(targetPosition);
+        fl.setTargetPosition(targetPosition);
+        br.setTargetPosition(targetPosition);
+        bl.setTargetPosition(targetPosition);
+
+        fr.setPower(-power);
+        fl.setPower(power);
+        br.setPower(power);
+        bl.setPower(-power);
+
+        fr.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        fl.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        br.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        bl.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        while (fr.isBusy() || fl.isBusy() || br.isBusy() || bl.isBusy()) {
+            if (fr.getPower() < Threshold && br.getPower() < Threshold &&
                     bl.getPower() < Threshold && br.getPower() < Threshold) {
                 break;
             }
