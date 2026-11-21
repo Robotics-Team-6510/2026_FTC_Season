@@ -158,7 +158,7 @@ public class Baked_not_Fried_Autonomous extends LinearOpMode {
        move(-700,1);
        strafeR(1700,1);
        move(-3000,1);
-       strafeR(300,1);
+       strafeR(400,1);
 
 
     }
