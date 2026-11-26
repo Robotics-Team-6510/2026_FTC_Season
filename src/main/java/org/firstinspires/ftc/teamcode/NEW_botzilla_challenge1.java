@@ -23,8 +23,8 @@ public class NEW_botzilla_challenge1 extends OpMode {
         shooter1 = hardwareMap.get(DcMotor.class, "shooter1");
         shooter2 = hardwareMap.get(DcMotor.class, "shooter2");
 
-        shooter1.setDirection(DcMotorSimple.Direction.REVERSE);
-        shooter2.setDirection(DcMotorSimple.Direction.REVERSE);
+        shooter1.setDirection(DcMotorSimple.Direction.FORWARD);
+        shooter2.setDirection(DcMotorSimple.Direction.FORWARD);
 
         shooter1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         shooter2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -74,9 +74,9 @@ public class NEW_botzilla_challenge1 extends OpMode {
         }
 
         if (gamepad1.left_bumper) {
-            IN.setPower(0.6);
+            IN.setPower(1);
         } else if (gamepad1.right_bumper) {
-            IN.setPower(-0.6);
+            IN.setPower(-1);
         } else {
             IN.setPower(0);
         }
