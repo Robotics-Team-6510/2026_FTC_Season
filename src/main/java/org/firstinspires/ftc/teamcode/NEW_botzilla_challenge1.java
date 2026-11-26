@@ -25,7 +25,7 @@ public class NEW_botzilla_challenge1 extends OpMode {
         shooter2 = hardwareMap.get(DcMotorEx.class, "shooter2");
 
         shooter1.setDirection(DcMotorSimple.Direction.FORWARD);
-        shooter2.setDirection(DcMotorSimple.Direction.REVERSE);
+        shooter2.setDirection(DcMotorSimple.Direction.FORWARD);
 
         shooter1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         shooter2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
