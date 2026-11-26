@@ -57,9 +57,9 @@ public class NEW_botzilla_challenge1 extends OpMode {
     @Override
     public void loop() {
 
-        if (gamepad1.right_trigger > 0.1) {
-            shooter1.setVelocity(1700);
-            shooter2.setVelocity(1700);
+        if (gamepad2.right_trigger > 0.1) {
+            shooter1.setVelocity(1850);
+            shooter2.setVelocity(1850);
         } else {
             shooter1.setVelocity(0);
             shooter2.setVelocity(0);
@@ -74,9 +74,9 @@ public class NEW_botzilla_challenge1 extends OpMode {
             imu.resetYaw();
         }
 
-        if (gamepad1.left_bumper) {
+        if (gamepad2.left_bumper) {
             IN.setPower(1);
-        } else if (gamepad1.right_bumper) {
+        } else if (gamepad2.right_bumper) {
             IN.setPower(-1);
         } else {
             IN.setPower(0);
