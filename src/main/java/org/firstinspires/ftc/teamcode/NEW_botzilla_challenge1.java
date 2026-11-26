@@ -4,6 +4,7 @@ import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.IMU;
 
@@ -13,21 +14,21 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 public class NEW_botzilla_challenge1 extends OpMode {
     // 1 - variable definition
 
-    private DcMotor shooter1, shooter2;
+    private DcMotorEx shooter1, shooter2;
     DcMotor FR, FL, BR, BL, IN;
     IMU imu;
 
     @Override
     public void init() {
 
-        shooter1 = hardwareMap.get(DcMotor.class, "shooter1");
-        shooter2 = hardwareMap.get(DcMotor.class, "shooter2");
+        shooter1 = hardwareMap.get(DcMotorEx.class, "shooter1");
+        shooter2 = hardwareMap.get(DcMotorEx.class, "shooter2");
 
         shooter1.setDirection(DcMotorSimple.Direction.FORWARD);
-        shooter2.setDirection(DcMotorSimple.Direction.FORWARD);
+        shooter2.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        shooter1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        shooter2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        shooter1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        shooter2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         shooter1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         shooter2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -57,11 +58,11 @@ public class NEW_botzilla_challenge1 extends OpMode {
     public void loop() {
 
         if (gamepad1.right_trigger > 0.1) {
-            shooter1.setPower(1);
-            shooter2.setPower(1);
+            shooter1.setVelocity(1700);
+            shooter2.setVelocity(1700);
         } else {
-            shooter1.setPower(0);
-            shooter2.setPower(0);
+            shooter1.setVelocity(0);
+            shooter2.setVelocity(0);
         }
 
         // 3
